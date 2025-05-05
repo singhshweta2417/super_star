@@ -48,31 +48,6 @@ class _LuckyCard16State extends State<LuckyCard16> {
     });
   }
 
-  // void _handleKey(RawKeyEvent event) {
-  //   if (event is RawKeyDownEvent) {
-  //     if (event.logicalKey == LogicalKeyboardKey.enter ||
-  //         event.logicalKey == LogicalKeyboardKey.numpadEnter) {
-  //       // if (ticketController.text.isNotEmpty) {
-  //       //   Provider.of<Lucky16CheckViewModel>(
-  //       //     context,
-  //       //     listen: false,
-  //       //   ).lucky16CheckApi(context, ticketController.text);
-  //       //   ticketController.clear();
-  //       // } else {
-  //         final l16c = Provider.of<Lucky16Controller>(context, listen: false);
-  //         final l16cBetCon = Provider.of<Lucky16BetViewModel>(context, listen: false);
-  //         if (l16c.addLucky16Bets.isNotEmpty && !l16cBetCon.loading && l16c.addLucky16Bets != []) {
-  //           l16c.lucky16BetViewModel.lucky16BetApi(
-  //             l16c.addLucky16Bets,
-  //             context,
-  //           );
-  //         }
-  //       // }
-  //     } else if (event.logicalKey == LogicalKeyboardKey.backspace) {
-  //       Navigator.pop(context);
-  //     }
-  //   }
-  // }
 
   bool _isKeyLocked = false;
 

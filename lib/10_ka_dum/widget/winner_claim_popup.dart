@@ -106,7 +106,7 @@ class WinnerDusClaimPopup extends StatelessWidget {
                             buildInfoRow(
                               "Dus Ka Dum:",
                               Text(
-                                ticket['win_number'],
+                                ticket['win_number'].toString(),
                                 style: TextStyle(
                                   fontSize: screenWidth / 90,
                                   fontWeight: FontWeight.w600,
@@ -123,7 +123,7 @@ class WinnerDusClaimPopup extends StatelessWidget {
                             buildInfoRow(
                               "draw time:",
                               Text(
-                                ticket['drawtime'],
+                                ticket['draw_time'],
                                 style: TextStyle(
                                   fontSize: screenWidth / 90,
                                   fontWeight: FontWeight.w600,

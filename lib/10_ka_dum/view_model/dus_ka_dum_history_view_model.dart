@@ -6,7 +6,6 @@ import 'package:super_star/lucky_card_16/model/lucky_16_history_model.dart';
 import 'package:super_star/lucky_card_16/model/report_history_model.dart';
 import '../../lucky_card_16/model/today_result_model.dart';
 import '../../spin_to_win/view_model/user_view_model.dart';
-import '../../utils/printing/ticket_preview.dart';
 import '../widget/ticket_10_preview.dart';
 
 class DusKaDumHistoryViewModel with ChangeNotifier {

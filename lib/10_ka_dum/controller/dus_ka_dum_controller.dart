@@ -7,20 +7,11 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:super_star/10_ka_dum/res/api_url.dart';
 import 'package:super_star/10_ka_dum/view_model/dus_ka_dum_result_view_model.dart';
 import 'package:super_star/spin_to_win/view_model/profile_view_model.dart';
-
 import '../../generated/assets.dart';
 import '../../lucky_card_12/controller/lucky_12_controller.dart';
 import '../../lucky_card_16/controller/audio_controller.dart';
 
 class DusKaDumController extends ChangeNotifier {
-  // int _currentResult = 0;
-  // int get currentResult => _currentResult;
-  //
-  // setCurrentResult(int val) {
-  //   debugPrint('value set to: $val');
-  //   _currentResult = val;
-  //   notifyListeners();
-  // }
 
   String get nextDrawTimeFormatted {
     DateTime nextDrawTime = DateTime.now().add(
@@ -83,6 +74,7 @@ class DusKaDumController extends ChangeNotifier {
     tapedColumnTrack.clear();
     notifyListeners();
   }
+
   List<dynamic> _dusKaDumBets = [];
   List<dynamic> get dusKaDumBets => _dusKaDumBets;
 
@@ -255,6 +247,7 @@ class DusKaDumController extends ChangeNotifier {
 
   bool _showBettingTime = false;
   bool get showBettingTime => _showBettingTime;
+
   void setBettingTime(bool val) {
     _showBettingTime = val;
     notifyListeners();

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,9 +26,11 @@ class DusKaDamGameScreen extends StatefulWidget {
   State<DusKaDamGameScreen> createState() => _DusKaDamGameScreenState();
 }
 
-class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
+class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   @override
   void initState() {
+    super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _keyboardFocusNode.requestFocus();
       final usb10Print = Provider.of<UsbPrintDusViewModel>(
@@ -44,7 +47,16 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
         listen: false,
       ).dusKaDumResultApi(context);
     });
-    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 5),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   bool _isKeyLocked = false;
@@ -72,6 +84,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
 
   final FocusNode _keyboardFocusNode = FocusNode();
   final TextEditingController ticketController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Sizes.initSizing(context);
@@ -229,8 +242,9 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
 
   Widget gameInfo() {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
-    return Consumer2<DusKaDumController, DusKaDumResultViewModel>(
-      builder: (context, dkdCon, result, _) {
+    return Consumer3<DusKaDumController, DusKaDumResultViewModel,DusKaDumCheckViewModel>(
+      builder: (context, dkdCon, result,check, _) {
+        double size = Sizes.screenWidth / 12;
         return Container(
           width: Sizes.screenWidth / 4.2,
           padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
@@ -357,80 +371,101 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Container(
-                        height: Sizes.screenWidth / 14,
-                        width: Sizes.screenWidth / 14,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(Assets.dusKaDumCircleButton),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                      ),
-                      Container(
-                        height: Sizes.screenWidth / 12,
-                        width: Sizes.screenWidth / 12,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(Assets.dusKaDumCircleBorder),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        alignment: Alignment.center,
-                        child:
-                            result.dusKaDumResultList.isNotEmpty &&
-                                    !dkdCon.resultShowTime
-                                ? CText(
-                              result.dusKaDumResultList.first.winNumber.toString(),
-                                  size: Sizes.fontSize12,
-                                  color: Colors.white,
-                                  weight: FontWeight.bold,
-                                )
-                                : CText(
-                                  '0',
-                                  size: Sizes.fontSize12,
-                                  color: Colors.white,
-                                  weight: FontWeight.bold,
-                                ),
-                      ),
-                    ],
-                  ),
-
-                  Sizes.spaceW10,
-                  GestureDetector(
-                    onTap: () {
-                      claimPopUp(context);
-                    },
-                    child: Container(
-                      height: Sizes.screenWidth / 22,
-                      width: Sizes.screenWidth / 10,
-                      padding: EdgeInsets.only(bottom: 3),
-                      alignment: Alignment.center,
+              SizedBox(
+                height: size,
+                width: size,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      height: Sizes.screenWidth / 14,
+                      width: Sizes.screenWidth / 14,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage(Assets.dusKaDumClaimBtnBg),
-                          fit: BoxFit.fitWidth,
+                          image: AssetImage(Assets.dusKaDumCircleButton),
+                          fit: BoxFit.fill,
                         ),
                       ),
-                      child: CText(
-                        "claim".toUpperCase(),
-                        weight: FontWeight.bold,
-                        color: Color(0xffc70202),
-                        size: Sizes.fontSize6,
+                      alignment: Alignment.center,
+                    ),
+                    AnimatedBuilder(
+                      animation: _controller,
+                      builder: (_, child) {
+                        return Transform.rotate(
+                          angle: _controller.value * 2 * pi,
+                          child: child,
+                        );
+                      },
+                      child: Image.asset(
+                        Assets.dusKaDumCircleBorder,
+                        fit: BoxFit.cover,
+                        width: size,
+                        height: size,
                       ),
+                    ),
+                    result.dusKaDumResultList.isNotEmpty &&
+                        !dkdCon.resultShowTime
+                        ? CText(
+                      result.dusKaDumResultList.first.winNumber.toString(),
+                      size: Sizes.fontSize12,
+                      color: Colors.white,
+                      weight: FontWeight.bold,
+                    )
+                        : CText(
+                      '0',
+                      size: Sizes.fontSize12,
+                      color: Colors.white,
+                      weight: FontWeight.bold,
+                    ),
+                  ],
+                ),
+              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     claimPopUp(context);
+              //   },
+              //   child: Container(
+              //     height: Sizes.screenWidth / 22,
+              //     width: Sizes.screenWidth / 10,
+              //     padding: EdgeInsets.only(bottom: 3),
+              //     alignment: Alignment.center,
+              //     decoration: BoxDecoration(
+              //       image: DecorationImage(
+              //         image: AssetImage(Assets.dusKaDumClaimBtnBg),
+              //         fit: BoxFit.fitWidth,
+              //       ),
+              //     ),
+              //     child: CText(
+              //       "claim".toUpperCase(),
+              //       weight: FontWeight.bold,
+              //       color: Color(0xffc70202),
+              //       size: Sizes.fontSize6,
+              //     ),
+              //   ),
+              // ),
+              Sizes.spaceH5,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  textField(ticketController),
+                  SizedBox(
+                    width: screenWidth * 0.07,
+                    child: Lucky12Btn(
+                      height:screenHeight * 0.07 ,
+                      title: 'CHECK',
+                      onTap: () async {
+                        await check.dusKaDumCheckApi
+                          (
+                            context,
+                            ticketController.text
+                        ).then((_){
+                          ticketController.clear();
+                        });
+                      },
                     ),
                   ),
                 ],
               ),
-              Sizes.spaceH10,
-              Center(child: textField()),
               Sizes.spaceH10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -464,7 +499,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
     );
   }
 
-  Widget textField() {
+  Widget textField(ticketController) {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(5),
       borderSide: BorderSide(width: 3, color: Color(0xffc70202)),
@@ -475,7 +510,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
         filled: true,
         constraints: BoxConstraints(
           maxHeight: 35,
-          maxWidth: Sizes.screenWidth / 6,
+          maxWidth: Sizes.screenWidth / 7,
         ),
         contentPadding: EdgeInsets.only(
           left: 10,
@@ -487,6 +522,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
         enabledBorder: border,
         focusedBorder: border,
       ),
+      controller: ticketController,
       textAlignVertical: TextAlignVertical.top,
     );
   }
@@ -933,68 +969,69 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen> {
   }
 
   ///Claim
-  void claimPopUp(BuildContext context) {
-    final checkData = Provider.of<DusKaDumCheckViewModel>(
-      context,
-      listen: false,
-    );
-    showCupertinoDialog(
-      context: context,
-      builder:
-          (context) => AlertDialog(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Claim Ticket Id"),
-            InkWell(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                padding: EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  CupertinoIcons.clear_circled,
-                  color: Colors.white,
-                ),
-              ),
-            )
-          ],
-        ),
-        content: Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.topCenter,
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(height: 10),
-                CupertinoTextField(
-                  controller: ticketController,
-                  autofocus: true,
-                  placeholder: "Enter your Ticket I'd",
-                  padding: EdgeInsets.all(10),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(height: screenHeight * 0.02),
-                Lucky12Btn(
-                  title: 'CHECK',
-                  onTap: () async {
-                    await checkData.dusKaDumCheckApi(
-                        context,
-                        ticketController.text
-                    );
-                    // Navigator.pop(context);
-                  },
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // void claimPopUp(BuildContext context) {
+  //   final checkData = Provider.of<DusKaDumCheckViewModel>(
+  //     context,
+  //     listen: false,
+  //   );
+  //   showCupertinoDialog(
+  //     context: context,
+  //     builder:
+  //         (context) => AlertDialog(
+  //       title: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Text("Claim Ticket Id"),
+  //           InkWell(
+  //             onTap: () {
+  //               Navigator.pop(context);
+  //             },
+  //             child: Container(
+  //               padding: EdgeInsets.all(3),
+  //               decoration: BoxDecoration(
+  //                 color: Colors.red,
+  //                 shape: BoxShape.circle,
+  //               ),
+  //               child: Icon(
+  //                 CupertinoIcons.clear_circled,
+  //                 color: Colors.white,
+  //               ),
+  //             ),
+  //           )
+  //         ],
+  //       ),
+  //       content: Stack(
+  //         clipBehavior: Clip.none,
+  //         alignment: Alignment.topCenter,
+  //         children: [
+  //           Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             children: [
+  //               SizedBox(height: 10),
+  //               CupertinoTextField(
+  //                 controller: ticketController,
+  //                 autofocus: true,
+  //                 placeholder: "Enter your Ticket I'd",
+  //                 padding: EdgeInsets.all(10),
+  //                 keyboardType: TextInputType.number,
+  //               ),
+  //               SizedBox(height: screenHeight * 0.02),
+  //               Lucky12Btn(
+  //                 title: 'CHECK',
+  //                 onTap: () async {
+  //                   await checkData.dusKaDumCheckApi(
+  //                       context,
+  //                       ticketController.text
+  //                   );
+  //                   // Navigator.pop(context);
+  //                 },
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+
 }

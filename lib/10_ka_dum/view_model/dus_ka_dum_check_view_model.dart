@@ -37,6 +37,7 @@ class DusKaDumCheckViewModel with ChangeNotifier {
       final userId = await UserViewModel().getUser();
       Map<String, dynamic> data = {"ticket_id": ticketId, 'user_id': userId};
       await _dusKaDumCheckRepo.dusKaDumCheckApi(data).then((value) {
+
         final ticket = value;
         if (ticket['data'] != null) {
           Provider.of<ProfileViewModel>(

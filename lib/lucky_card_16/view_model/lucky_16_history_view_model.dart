@@ -44,6 +44,8 @@ class Lucky16HistoryViewModel with ChangeNotifier {
         .then((value) {
           if (value.success == true) {
             setListData(value);
+            print(value.data?.first.ticketId);
+            print('value.data.first.ticketId');
           } else {
             if (kDebugMode) {
               print('value: ${value.message}');

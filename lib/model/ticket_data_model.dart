@@ -9,6 +9,7 @@ class Ticket {
   int? winAmount;
   String? ticketId;
   String? ticketTime;
+  String? drawTime;
   int? status;
   String? createdAt;
   String? updatedAt;
@@ -25,6 +26,7 @@ class Ticket {
         this.winAmount,
         this.ticketId,
         this.ticketTime,
+        this.drawTime,
         this.status,
         this.createdAt,
         this.updatedAt,
@@ -41,6 +43,7 @@ class Ticket {
     winAmount = json['win_amount'];
     ticketId = json['ticket_id'];
     ticketTime = json['ticket_time'];
+    drawTime = json['draw_time'];
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -59,6 +62,7 @@ class Ticket {
     data['win_amount'] = winAmount;
     data['ticket_id'] = ticketId;
     data['ticket_time'] = ticketTime;
+    data['draw_time'] = drawTime;
     data['status'] = status;
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
