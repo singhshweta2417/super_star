@@ -44,11 +44,11 @@ class UsbPrintViewModel extends ChangeNotifier {
   var printerManager = PrinterManager.instance;
   bool _isConnected = false;
   var devices = <BluetoothPrinter>[];
-  bool _isBle = false;
-  var _reconnect = false;
+  final bool _isBle = false;
+  final _reconnect = false;
   BluetoothPrinter? selectedPrinter;
   List<int>? pendingTask;
-  BTStatus _currentStatus = BTStatus.none;
+  final BTStatus _currentStatus = BTStatus.none;
 
   Future<img.Image?> loadCardAssetImageAsRaster(String assetPath) async {
     try {
@@ -399,8 +399,7 @@ class UsbPrintViewModel extends ChangeNotifier {
         );
         if (!connectedTCP) print(' --- please review your connection ---');
         break;
-      default:
-    }
+      }
     if (bluetoothPrinter.typePrinter == PrinterType.bluetooth &&
         Platform.isAndroid) {
       if (_currentStatus == BTStatus.connected) {

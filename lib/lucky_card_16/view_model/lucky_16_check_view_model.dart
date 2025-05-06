@@ -22,13 +22,12 @@ class Lucky16CheckViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Ticket? _ticketData;
-  Ticket? get ticketData => _ticketData;
-  setTicketData(Ticket data, BuildContext context) {
+  TicketModel? _ticketData;
+  TicketModel? get ticketData => _ticketData;
+  setTicketData(TicketModel data, BuildContext context) {
     _ticketData = data;
     notifyListeners();
   }
-  // final TextEditingController ticketController = TextEditingController();
 
   Future<void> lucky16CheckApi(context, String ticketId) async {
     try {

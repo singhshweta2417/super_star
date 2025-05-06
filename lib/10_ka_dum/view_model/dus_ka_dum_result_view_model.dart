@@ -56,7 +56,7 @@ class DusKaDumResultViewModel with ChangeNotifier {
               Provider.of<DusKaDumController>(
                 context,
                 listen: false,
-              ).getBetDataForNumber(value.result16!.first.winNumber ?? 0);
+              ).getJokerJackPot(value.result16!.first.jackpot ?? 0, context);
             });
           } else {
             setLoading(false);

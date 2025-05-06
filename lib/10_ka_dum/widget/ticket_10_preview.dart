@@ -224,9 +224,6 @@ class _Ticket10PreviewState extends State<Ticket10Preview> {
                                     widget.betData,
                                     context,
                                   );
-                                  print(widget.gameData);
-                                  print(widget.betData);
-                                  print('widget.gameData');
                                 },
                                 height: 30,
                                 fontSize: 15,
@@ -293,7 +290,7 @@ class _Ticket10PreviewState extends State<Ticket10Preview> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text("$imagePath"),
+          Text(imagePath),
           // Image.asset(imagePath, height: 20, width: 20),
           const SizedBox(width: 15),
           Text("$amount"),

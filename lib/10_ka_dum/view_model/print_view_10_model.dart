@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:barcode/barcode.dart' as barcode_lib;
@@ -39,8 +40,6 @@ class Printing10Controller extends ChangeNotifier {
   }
 
   Future<void> handleReceiptPrinting(dynamic gameData,List<dynamic> betData,context) async {
-    print('1ss$gameData');
-    print('2ndsss$betData');
     setDownloading(true);
     final l16c = Provider.of<DusKaDumController>(context, listen: false);
     l16c.clearBetPrinting();
@@ -190,12 +189,35 @@ class Printing10Controller extends ChangeNotifier {
         ),
       ),
     );
-    final output = await getExternalStorageDirectory();
-    final file = File("${output!.path}/ticket_$ticketId.pdf");
+    Directory? dir;
+    if (Platform.isAndroid) {
+      dir = Directory("/storage/emulated/0/Download");
+    } else if (Platform.isWindows)
+    {
+      dir = await getDownloadsDirectory();
+    } else if (Platform.isMacOS || Platform.isLinux)
+    {
+      dir = await getApplicationDocumentsDirectory();
+    } else
+    {
+      throw UnsupportedError("Unsupported Platform");
+    }
+
+    if (!await dir!.exists()) {
+      await dir.create(recursive: true);
+    }
+
+    final fileName = DateTime.now().millisecondsSinceEpoch.toString();
+    final path = "${dir.path}/$fileName.pdf";
+    final file = File(path);
     await file.writeAsBytes(await pdf.save());
 
-    Utils.show("PDF downloaded at ${file.path}", context);
+    Utils.show(
+      "PDF generated successfully, as $fileName.pdf - location: ${dir.path}",
+      context,
+    );
     setDownloading(false);
+    log("PDF Saved at: $path");
   }
 
 
@@ -253,7 +275,6 @@ class Printing10Controller extends ChangeNotifier {
     ]);
 
     for (var bet in gameData["bets"]) {
-      print(gameData["bets"]);
       bytes += generator.row([
         PosColumn(text: bet['game_id'].toString(), width: 6),
         PosColumn(text: bet['amount'].toString(), width: 6),

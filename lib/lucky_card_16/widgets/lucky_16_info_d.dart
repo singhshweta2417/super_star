@@ -347,9 +347,7 @@ class _GameHistoryState extends State<GameHistory> {
                           (card) =>
                               card.id ==
                               l16hvm
-                                  .lucky16TodayResultList!
-                                  .data![index]
-                                  .winNumber,
+                                  .lucky16TodayResultList?.data![index].winNumber,
                         );
                         return l16hvm.lucky16HistoryModel!.data!.isNotEmpty
                             ? Container(

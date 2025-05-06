@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:super_star/10_ka_dum/controller/dus_ka_dum_controller.dart';
 import 'package:super_star/10_ka_dum/view_model/dus_ka_dum_history_view_model.dart';
+import 'package:super_star/andar_bahar/widgets/andar_bahar_history.dart';
 import 'package:super_star/lucky_card_16/widgets/lucky_16_btn.dart';
 import 'package:super_star/main.dart';
 import 'package:super_star/utils/utils.dart';
@@ -26,16 +28,13 @@ class _DusKaDumHistoryScreenState extends State<DusKaDumHistoryScreen> {
         listen: false,
       );
       dusKaDumHistoryViewModel.dusKaDumHistoryApi(context);
-      print('cjnsdkjvs');
       dusKaDumHistoryViewModel.dusKaDumTodayResultApi();
-      print('dknvksbjd');
       dusKaDumHistoryViewModel.dusKaDumGameReportApi(
         DateFormat(
           'yyyy-MM-dd',
         ).format(DateTime.now().subtract(Duration(days: 2))),
         DateFormat('yyyy-MM-dd').format(DateTime.now()),
       );
-      print('nvsdf');
     });
     super.initState();
   }
@@ -191,6 +190,7 @@ class _TodayResultHistoryState extends State<TodayResultHistory> {
   @override
   Widget build(BuildContext context) {
     final l16hvm = Provider.of<DusKaDumHistoryViewModel>(context);
+    final l16c = Provider.of<DusKaDumController>(context);
     return Column(
       children: [
         Row(
@@ -212,6 +212,18 @@ class _TodayResultHistoryState extends State<TodayResultHistory> {
                       ? List.generate(
                         l16hvm.dusKaDumTodayResultList!.data!.length,
                         (index) {
+                          final firstCard =
+                                l16hvm.dusKaDumTodayResultList!
+                                    .data![index]
+                                    .winNumber;
+                          final jackPotImage = l16c.getJackpotForIndex(
+                            l16hvm
+                                .dusKaDumTodayResultList!
+                                .data![index]
+                                .jackpot!,
+                          );
+                          // print(jackPotImage);
+                          // print('jackPotImage');
                           return l16hvm
                                   .dusKaDumTodayResultList!
                                   .data!
@@ -228,7 +240,7 @@ class _TodayResultHistoryState extends State<TodayResultHistory> {
                                       fotSize: 20,
                                     ),
                                     commonWidget(
-                                      '${l16hvm.dusKaDumTodayResultList!.data![index].periodNo}',
+                                      l16hvm.dusKaDumTodayResultList!.data![index].periodNo.toString(),
                                       screenHeight * 0.45,
                                       fotSize: 20,
                                     ),
@@ -250,6 +262,24 @@ class _TodayResultHistoryState extends State<TodayResultHistory> {
                                       screenHeight * 0.2,
                                       fotSize: 20,
                                     ),
+                                    // Stack(
+                                    //   alignment: Alignment.center,
+                                    //   children: [
+                                    //     textWidget(text: firstCard.toString()),
+                                    //     if (l16hvm
+                                    //         .dusKaDumTodayResultList!
+                                    //         .data![index]
+                                    //         .jackpot! >
+                                    //         1)
+                                    //       Positioned(
+                                    //         left: screenHeight * 0.13,
+                                    //         child: Image.asset(
+                                    //           jackPotImage.toString(),
+                                    //           width: 30,
+                                    //         ),
+                                    //       ),
+                                    //   ],
+                                    // ),
                                   ],
                                 ),
                               )
@@ -366,7 +396,6 @@ class _GameHistoryState extends State<GameHistory> {
                                               .data![index]
                                               .ticketId,
                                         );
-                                        print('dfnisdbk');
                                       },
                                       child: SizedBox(
                                         width: screenHeight * 0.2,

@@ -277,11 +277,14 @@ class PrintingController extends ChangeNotifier {
     Directory? dir;
     if (Platform.isAndroid) {
       dir = Directory("/storage/emulated/0/Download");
-    } else if (Platform.isWindows) {
+    } else if (Platform.isWindows)
+    {
       dir = await getDownloadsDirectory();
-    } else if (Platform.isMacOS || Platform.isLinux) {
+    } else if (Platform.isMacOS || Platform.isLinux)
+    {
       dir = await getApplicationDocumentsDirectory();
-    } else {
+    } else
+    {
       throw UnsupportedError("Unsupported Platform");
     }
 

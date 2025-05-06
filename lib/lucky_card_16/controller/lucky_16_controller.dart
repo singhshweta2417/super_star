@@ -774,6 +774,7 @@ class Lucky16Controller with ChangeNotifier {
         context: context,
         builder: (_) {
           return Dialog(
+            backgroundColor: Colors.transparent,
             child:  Container(
               height:Sizes.screenWidth / 3,
               width:Sizes.screenWidth / 3,

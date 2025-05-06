@@ -21,6 +21,9 @@ class DusKaDumHistoryViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+
+
+
   Lucky16HistoryModel? _dusKaDumHistoryModel;
 
   Lucky16HistoryModel? get dusKaDumHistoryModel => _dusKaDumHistoryModel;
@@ -29,14 +32,6 @@ class DusKaDumHistoryViewModel with ChangeNotifier {
     _dusKaDumHistoryModel = value;
     notifyListeners();
   }
-
-  TodayResultDataModel? _dusKaDumTodayResultList;
-  TodayResultDataModel? get dusKaDumTodayResultList => _dusKaDumTodayResultList;
-  setTodayResultData(TodayResultDataModel value) {
-    _dusKaDumTodayResultList = value;
-    notifyListeners();
-  }
-
   Future<void> dusKaDumHistoryApi(context) async {
     UserViewModel userViewModel = UserViewModel();
     String? userId = await userViewModel.getUser();
@@ -56,6 +51,14 @@ class DusKaDumHistoryViewModel with ChangeNotifier {
             print('error: $error');
           }
         });
+  }
+
+
+  TodayResultDataModel? _dusKaDumTodayResultList;
+  TodayResultDataModel? get dusKaDumTodayResultList => _dusKaDumTodayResultList;
+  setTodayResultData(TodayResultDataModel value) {
+    _dusKaDumTodayResultList = value;
+    notifyListeners();
   }
 
   Future<void> dusKaDumTodayResultApi() async {
@@ -86,13 +89,11 @@ class DusKaDumHistoryViewModel with ChangeNotifier {
 
   Future<void> dusKaDumHistoryPreviewApi(context, dynamic tktId) async {
     final data = {"ticket_id": tktId};
-    print('cdjsb${tktId}');
     _dusKaDumHistoryRepo
         .dusKaDumHistoryPreviewApi(data)
         .then((value) {
           setPreviewData(value);
           List<dynamic> betData = [];
-
           for (var data in value['data']['bets']) {
             betData.add({'game_id': data['game_id'], 'amount': data['amount']});
           }

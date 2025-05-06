@@ -270,52 +270,36 @@ class _Lucky16TopState extends State<Lucky16Top> {
                       children: [
                         ListTile(
                           title: Text('Ticket ID'),
-                          subtitle: Text(ticket!.ticketId.toString()),
+                          subtitle: Text(ticket!.data?.ticketId.toString()??''),
                         ),
                         ListTile(
                           title: Text('User ID'),
-                          subtitle: Text(ticket.userId.toString()),
+                          subtitle: Text(ticket.data?.userId.toString()??''),
                         ),
                         ListTile(
                           title: Text('Period Number'),
-                          subtitle: Text(ticket.periodNo.toString()),
+                          subtitle: Text(ticket.data?.periodNo.toString()??''),
                         ),
                         ListTile(
                           title: Text('Game ID'),
-                          subtitle: Text(ticket.gameId.toString()),
+                          subtitle: Text(ticket.data?.gameId.toString()??''),
                         ),
                         ListTile(
                           title: Text('Amount'),
-                          subtitle: Text(ticket.amount.toString()),
+                          subtitle: Text(ticket.data?.amount.toString()??''),
                         ),
                         ListTile(
                           title: Text('Win Number'),
-                          subtitle: Text(ticket.winNumber.toString()),
+                          subtitle: Text(ticket.data?.winNumber.toString()??''),
                         ),
                         ListTile(
                           title: Text('Win Amount'),
-                          subtitle: Text(ticket.winAmount.toString()),
+                          subtitle: Text(ticket.data?.winAmount.toString()??''),
                         ),
                         ListTile(
                           title: Text('Ticket Time'),
-                          subtitle: Text(ticket.ticketTime.toString()),
+                          subtitle: Text(ticket.data?.ticketTime.toString()??''),
                         ),
-                        // ListTile(
-                        //   title: Text('Status'),
-                        //   subtitle: Text(ticket.status.toString()),
-                        // ),
-                        // ListTile(
-                        //   title: Text('Created At'),
-                        //   subtitle: Text(ticket.createdAt),
-                        // ),
-                        // ListTile(
-                        //   title: Text('Updated At'),
-                        //   subtitle: Text(ticket.updatedAt),
-                        // ),
-                        // ListTile(
-                        //   title: Text('Message'),
-                        //   subtitle: Text(ticket.message),
-                        // ),
                       ],
                     ),
                   ),

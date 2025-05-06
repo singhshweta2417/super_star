@@ -33,6 +33,8 @@ class DusKaDumBetViewModel extends ChangeNotifier {
       "bets": betList,
       'draw_time ': dkdCon.nextDrawTimeFormatted,
     };
+    print(data);
+    print('sdbjfkwvsckvack');
     _dusKaDumBetRepo
         .dusKaDumBetApi(data)
         .then((value) {
@@ -49,6 +51,7 @@ class DusKaDumBetViewModel extends ChangeNotifier {
                 listen: false,
               ).handleReceiptPrinting(value, betList, context);
               // dkdCon.dusKaDumBets.clear();
+              print('object');
             setLoading(false);
           } else {
             setLoading(false);

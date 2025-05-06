@@ -26,7 +26,8 @@ class DusKaDamGameScreen extends StatefulWidget {
   State<DusKaDamGameScreen> createState() => _DusKaDamGameScreenState();
 }
 
-class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTickerProviderStateMixin {
+class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   @override
   void initState() {
@@ -242,8 +243,12 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
 
   Widget gameInfo() {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
-    return Consumer3<DusKaDumController, DusKaDumResultViewModel,DusKaDumCheckViewModel>(
-      builder: (context, dkdCon, result,check, _) {
+    return Consumer3<
+      DusKaDumController,
+      DusKaDumResultViewModel,
+      DusKaDumCheckViewModel
+    >(
+      builder: (context, dkdCon, result, check, _) {
         double size = Sizes.screenWidth / 12;
         return Container(
           width: Sizes.screenWidth / 4.2,
@@ -297,7 +302,14 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
                       children: [
                         labelTile('Balance', "${profileViewModel.balance}"),
                         labelTile('Draw time', dkdCon.nextDrawTimeFormatted),
-                        labelTile('game id', profileViewModel.userName),
+                        labelTile('terminal id', profileViewModel.userName),
+                        labelTile(
+                          'game id',
+                          result.dusKaDumResultList.isNotEmpty
+                              ? (result.dusKaDumResultList.first.periodNo! + 1)
+                                  .toString()
+                              : '',
+                        ),
                       ],
                     ),
                   ),
@@ -404,19 +416,19 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
                       ),
                     ),
                     result.dusKaDumResultList.isNotEmpty &&
-                        !dkdCon.resultShowTime
+                            !dkdCon.resultShowTime
                         ? CText(
-                      result.dusKaDumResultList.first.winNumber.toString(),
-                      size: Sizes.fontSize12,
-                      color: Colors.white,
-                      weight: FontWeight.bold,
-                    )
+                          result.dusKaDumResultList.first.winNumber.toString(),
+                          size: Sizes.fontSize12,
+                          color: Colors.white,
+                          weight: FontWeight.bold,
+                        )
                         : CText(
-                      '0',
-                      size: Sizes.fontSize12,
-                      color: Colors.white,
-                      weight: FontWeight.bold,
-                    ),
+                          '0',
+                          size: Sizes.fontSize12,
+                          color: Colors.white,
+                          weight: FontWeight.bold,
+                        ),
                   ],
                 ),
               ),
@@ -451,16 +463,14 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
                   SizedBox(
                     width: screenWidth * 0.07,
                     child: Lucky12Btn(
-                      height:screenHeight * 0.07 ,
+                      height: screenHeight * 0.07,
                       title: 'CHECK',
                       onTap: () async {
-                        await check.dusKaDumCheckApi
-                          (
-                            context,
-                            ticketController.text
-                        ).then((_){
-                          ticketController.clear();
-                        });
+                        await check
+                            .dusKaDumCheckApi(context, ticketController.text)
+                            .then((_) {
+                              ticketController.clear();
+                            });
                       },
                     ),
                   ),
@@ -593,8 +603,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
     Color textColor = Colors.black,
     BorderRadiusGeometry? borderRadius,
     double? width,
-  })
-  {
+  }) {
     return Container(
       padding: EdgeInsets.only(left: 8),
       alignment: Alignment.centerLeft,
@@ -607,7 +616,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
       ),
       child: CText(
         '${key.toUpperCase()} - $value',
-        size: Sizes.fontSize5,
+        size: Sizes.fontSize4,
         weight: FontWeight.bold,
         color: textColor,
       ),
@@ -925,8 +934,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
     String label, {
     void Function()? onTap,
     bool enabled = true,
-  })
-  {
+  }) {
     return GestureDetector(
       onTap: enabled ? onTap : null,
       child: Container(
@@ -1033,5 +1041,4 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>with SingleTicke
   //     ),
   //   );
   // }
-
 }

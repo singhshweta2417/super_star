@@ -113,12 +113,6 @@ class WinnerDusClaimPopup extends StatelessWidget {
                                   color: Colors.white,
                                 ),
                               ),
-                              // textWidget(text: ticket['win_number'])
-                              // Image.asset(
-                              //   firstCard.image,
-                              //   width: 40,
-                              //   height: 40,
-                              // ),
                             ),
                             buildInfoRow(
                               "draw time:",
@@ -262,4 +256,5 @@ class WinnerDusClaimPopup extends StatelessWidget {
       ),
     );
   }
+
 }

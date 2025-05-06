@@ -15,7 +15,7 @@ class DusKaDumCheckRepository {
       return response;
     } catch (e) {
       if (kDebugMode) {
-        print('Error occurred during lucky16CheckApi: $e');
+        print('Error occurred during dusKaDumCheckApi: $e');
       }
       rethrow;
     }

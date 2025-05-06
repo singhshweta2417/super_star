@@ -39,12 +39,14 @@ class Utils {
 
   static void _startTimer() {
     Timer(const Duration(seconds: 5), () {
-      if (_overlayEntry != null) {
-        _overlayEntry!.remove();
+      if (_overlayEntry != null && _overlayEntry!.mounted) {
+        _overlayEntry?.remove();
         _isShowing = false;
+        _overlayEntry = null;
       }
     });
   }
+
 
   static OverlayEntry? _overlayImgEntry;
   static bool _isShowingImg = false;

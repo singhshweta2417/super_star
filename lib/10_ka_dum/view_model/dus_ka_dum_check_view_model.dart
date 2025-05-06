@@ -10,7 +10,6 @@ import '../../spin_to_win/view_model/profile_view_model.dart'
     show ProfileViewModel;
 import '../widget/winner_claim_popup.dart';
 
-
 class DusKaDumCheckViewModel with ChangeNotifier {
   final _dusKaDumCheckRepo = DusKaDumCheckRepository();
 
@@ -23,10 +22,10 @@ class DusKaDumCheckViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Ticket? _ticketData;
-  Ticket? get ticketData => _ticketData;
+  TicketModel? _ticketData;
+  TicketModel? get ticketData => _ticketData;
 
-  setTicketData(Ticket data, BuildContext context) {
+  setTicketData(TicketModel data) {
     _ticketData = data;
     notifyListeners();
   }
@@ -37,7 +36,6 @@ class DusKaDumCheckViewModel with ChangeNotifier {
       final userId = await UserViewModel().getUser();
       Map<String, dynamic> data = {"ticket_id": ticketId, 'user_id': userId};
       await _dusKaDumCheckRepo.dusKaDumCheckApi(data).then((value) {
-
         final ticket = value;
         if (ticket['data'] != null) {
           Provider.of<ProfileViewModel>(
@@ -70,5 +68,4 @@ class DusKaDumCheckViewModel with ChangeNotifier {
     DateTime dateTime = DateTime.parse(dateTimeString);
     return DateFormat("d MMM 'at' h:mm a").format(dateTime);
   }
-
 }

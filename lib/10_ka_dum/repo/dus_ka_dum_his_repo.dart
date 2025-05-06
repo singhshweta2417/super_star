@@ -38,10 +38,12 @@ class DusKaDumHistoryRepository {
     }
   }
 
+  ///GameTicketDetail
+
   Future<dynamic> dusKaDumHistoryPreviewApi(dynamic data) async {
     try {
       dynamic response = await _apiServices.getPostApiResponse(
-        DusKaDumApiUrl.dusKaDumPreviewResult,
+        DusKaDumApiUrl.dusKaDumGameTicketDetail,
         data,
       );
       debugPrint("10 ka dum history preview data: $response");

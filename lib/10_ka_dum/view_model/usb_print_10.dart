@@ -235,8 +235,6 @@ class UsbPrintDusViewModel extends ChangeNotifier {
 
       String firstNumber = bets[firstIndex]["game_id"].toString();
       String firstAmount = bets[firstIndex]["amount"].toString();
-       print('yaha aa raha${firstNumber}');
-       // print('yaha aa raha${fir}');
 
       String secondNumber = "";
       String secondAmount = "";
@@ -403,4 +401,5 @@ class UsbPrintDusViewModel extends ChangeNotifier {
       printerManager.send(type: bluetoothPrinter.typePrinter, bytes: bytes);
     }
   }
+
 }

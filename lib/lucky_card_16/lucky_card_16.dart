@@ -947,7 +947,8 @@ class _LuckyCard16State extends State<LuckyCard16> {
   Widget _buildVerticalLayout(
     Lucky16Controller l16c,
     Lucky16ResultViewModel lucky16resultViewModel,
-  ) {
+  )
+  {
     final card = l16c.getCardForIndex(
       lucky16resultViewModel.lucky16ResultList.first.cardIndex!,
     );

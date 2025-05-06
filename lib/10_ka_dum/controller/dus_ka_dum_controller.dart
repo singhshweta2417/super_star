@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -10,6 +11,7 @@ import 'package:super_star/spin_to_win/view_model/profile_view_model.dart';
 import '../../generated/assets.dart';
 import '../../lucky_card_12/controller/lucky_12_controller.dart';
 import '../../lucky_card_16/controller/audio_controller.dart';
+import '../res/sizes_const.dart';
 
 class DusKaDumController extends ChangeNotifier {
 
@@ -58,7 +60,7 @@ class DusKaDumController extends ChangeNotifier {
   }
   setBetPrinting(List<dynamic> bet) {
     addDusKDBetsPrinting.addAll(bet);
-    debugPrint("aaa ${addDusKDBetsPrinting.length}");
+    debugPrint("debug ${addDusKDBetsPrinting.length}");
     notifyListeners();
   }
   clearBetPrinting() {
@@ -230,6 +232,55 @@ class DusKaDumController extends ChangeNotifier {
     }
     tapedColumnTrack.add({"index": index, "amount": selectedChip});
     notifyListeners();
+  }
+  String? getJackpotForIndex(int jackpot) {
+    final jackpotModel = jackpotList.firstWhere(
+          (e) => e.id == jackpot,
+      orElse: () => JackpotModel(img: '', id: 1),
+    );
+    return jackpotModel.id == 1 ? null : jackpotModel.img;
+  }
+  List<JackpotModel> jackpotList = [
+    JackpotModel(img: Assets.jackpot2x, id: 2),
+    JackpotModel(img: Assets.jackpot3x, id: 3),
+    JackpotModel(img: Assets.jackpot4x, id: 4),
+    JackpotModel(img: Assets.jackpot5x, id: 5),
+    JackpotModel(img: Assets.jackpot6x, id: 6),
+    JackpotModel(img: Assets.jackpot7x, id: 7),
+    JackpotModel(img: Assets.jackpot8x, id: 8),
+    JackpotModel(img: Assets.jackpot9x, id: 9),
+    JackpotModel(img: Assets.jackpot10x, id: 10),
+    JackpotModel(img: Assets.jackpot11x, id: 11),
+    JackpotModel(img: Assets.jackpot12x, id: 12),
+  ];
+  getJokerJackPot(int jackPot, BuildContext context) {
+    final jackpotModel = jackpotList.firstWhere(
+          (e) => e.id == jackPot,
+      orElse: () => JackpotModel(img: '', id: 1),
+    );
+    if (jackpotModel.id > 1) {
+      AudioController().playSound('beep');
+      showDialog(
+        context: context,
+        builder: (_) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child:  Container(
+              height:Sizes.screenWidth / 3,
+              width:Sizes.screenWidth / 3,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(image: AssetImage('assets/jackpot/joker.gif'),fit: BoxFit.contain)
+              ),
+
+            ),
+          );
+        },
+      );
+      Future.delayed(Duration(seconds: 2,), () {
+        Navigator.pop(context);
+      });
+    }
   }
 
   doubleUpBet() {
