@@ -160,4 +160,11 @@ class Lucky16HistoryViewModel with ChangeNotifier {
           }
         });
   }
+
+  clearList(){
+    _lucky16HistoryModel =null;
+    _lucky16TodayResultList=null;
+    _previewData=null;
+    _reportDetailsData=null;
+  }
 }

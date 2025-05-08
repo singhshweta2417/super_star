@@ -14,8 +14,6 @@ class AppExitPopUp extends StatelessWidget {
         backgroundColor: Colors.transparent,
         content: SizedBox(
           height: screenHeight * 0.3,
-          // decoration: BoxDecoration(
-          //     border: Border.all(width: 1.5, color: Colors.white)),
           child: Column(
             children: [
               Container(
@@ -92,7 +90,8 @@ Widget textWidget({
   Color color = Colors.white,
   TextAlign textAlign = TextAlign.start,
   int? maxLines,
-}) {
+})
+{
   return Text(
     text,
     textAlign: textAlign,

@@ -40,6 +40,8 @@ class _Lucky16InfoDState extends State<Lucky16InfoD> {
 
   @override
   Widget build(BuildContext context) {
+    final lucky16History = Provider.of<Lucky16HistoryViewModel>(context);
+
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -148,6 +150,7 @@ class _Lucky16InfoDState extends State<Lucky16InfoD> {
 
                 GestureDetector(
                   onTap: () {
+                    lucky16History.clearList();
                     Navigator.pop(context);
                   },
                   child: Container(
@@ -347,7 +350,9 @@ class _GameHistoryState extends State<GameHistory> {
                           (card) =>
                               card.id ==
                               l16hvm
-                                  .lucky16TodayResultList?.data![index].winNumber,
+                                  .lucky16TodayResultList
+                                  ?.data![index]
+                                  .winNumber,
                         );
                         return l16hvm.lucky16HistoryModel!.data!.isNotEmpty
                             ? Container(

@@ -14,7 +14,6 @@ import '../../lucky_card_16/controller/audio_controller.dart';
 import '../res/sizes_const.dart';
 
 class DusKaDumController extends ChangeNotifier {
-
   String get nextDrawTimeFormatted {
     DateTime nextDrawTime = DateTime.now().add(
       Duration(seconds: _timerBetTime + 10),
@@ -58,15 +57,18 @@ class DusKaDumController extends ChangeNotifier {
     _selectedChip = num;
     notifyListeners();
   }
+
   setBetPrinting(List<dynamic> bet) {
     addDusKDBetsPrinting.addAll(bet);
     debugPrint("debug ${addDusKDBetsPrinting.length}");
     notifyListeners();
   }
+
   clearBetPrinting() {
     addDusKDBetsPrinting = [];
     notifyListeners();
   }
+
   clearBetAfterPrint() {
     dusKaDumBets.clear();
     totalBetAmount = 0;
@@ -97,7 +99,6 @@ class DusKaDumController extends ChangeNotifier {
 
   double get playBetAmount {
     return _dusKaDumBets.fold(0.0, (sum, item) => sum + (item['amount'] ?? 0));
-
   }
 
   setLastBetData() {
@@ -175,7 +176,7 @@ class DusKaDumController extends ChangeNotifier {
 
       for (var id in cardIds) {
         var existingBet = dusKaDumBets.firstWhere(
-              (bet) => bet['game_id'] == id,
+          (bet) => bet['game_id'] == id,
           orElse: () => <String, int>{},
         );
 
@@ -233,13 +234,15 @@ class DusKaDumController extends ChangeNotifier {
     tapedColumnTrack.add({"index": index, "amount": selectedChip});
     notifyListeners();
   }
+
   String? getJackpotForIndex(int jackpot) {
     final jackpotModel = jackpotList.firstWhere(
-          (e) => e.id == jackpot,
+      (e) => e.id == jackpot,
       orElse: () => JackpotModel(img: '', id: 1),
     );
     return jackpotModel.id == 1 ? null : jackpotModel.img;
   }
+
   List<JackpotModel> jackpotList = [
     JackpotModel(img: Assets.jackpot2x, id: 2),
     JackpotModel(img: Assets.jackpot3x, id: 3),
@@ -255,7 +258,7 @@ class DusKaDumController extends ChangeNotifier {
   ];
   getJokerJackPot(int jackPot, BuildContext context) {
     final jackpotModel = jackpotList.firstWhere(
-          (e) => e.id == jackPot,
+      (e) => e.id == jackPot,
       orElse: () => JackpotModel(img: '', id: 1),
     );
     if (jackpotModel.id > 1) {
@@ -265,19 +268,21 @@ class DusKaDumController extends ChangeNotifier {
         builder: (_) {
           return Dialog(
             backgroundColor: Colors.transparent,
-            child:  Container(
-              height:Sizes.screenWidth / 3,
-              width:Sizes.screenWidth / 3,
+            child: Container(
+              height: Sizes.screenWidth / 3,
+              width: Sizes.screenWidth / 3,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(image: AssetImage('assets/jackpot/joker.gif'),fit: BoxFit.contain)
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage('assets/jackpot/joker.gif'),
+                  fit: BoxFit.contain,
+                ),
               ),
-
             ),
           );
         },
       );
-      Future.delayed(Duration(seconds: 2,), () {
+      Future.delayed(Duration(seconds: 2), () {
         Navigator.pop(context);
       });
     }
@@ -312,6 +317,7 @@ class DusKaDumController extends ChangeNotifier {
       debugPrint('there is no bet found for rebate');
     }
   }
+
   bool _resetOne = false;
   bool get resetOne => _resetOne;
   void setResetOne(bool val) {
@@ -363,7 +369,7 @@ class DusKaDumController extends ChangeNotifier {
 
       for (var id in cardIds) {
         var existingBet = dusKaDumBets.firstWhere(
-              (bet) => bet['game_id'] == id,
+          (bet) => bet['game_id'] == id,
           orElse: () => <String, int>{},
         );
 
@@ -413,7 +419,10 @@ class DusKaDumController extends ChangeNotifier {
       );
       if (receiveData['timerStatus'] == 1 &&
           receiveData['timerBetTime'] == 179) {
-        Provider.of<DusKaDumResultViewModel>(context,listen: false).dusKaDumResultApi(context);
+        Provider.of<DusKaDumResultViewModel>(
+          context,
+          listen: false,
+        ).dusKaDumResultApi(context);
         setBettingTime(false);
       }
       if (receiveData['timerStatus'] == 1 &&
@@ -455,5 +464,4 @@ class DusKaDumController extends ChangeNotifier {
       print('SOCKET DISCONNECT');
     }
   }
-
 }

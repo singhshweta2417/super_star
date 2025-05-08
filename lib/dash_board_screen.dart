@@ -61,44 +61,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // List<DashBoardModel> dashBoardList = [
-    //   DashBoardModel(
-    //       onTap: () {
-    //         Navigator.pushNamed(context, RoutesName.tripleChance);
-    //       },
-    //       title: 'Triple Chance',
-    //       img: Assets.assetsDTripleChance),
-    //   DashBoardModel(
-    //       onTap: () {
-    //         Navigator.pushNamed(context, RoutesName.spin2Win);
-    //       },
-    //       title: 'Spin To Win',
-    //       img: Assets.assetsDSpin2Win),
-    //   DashBoardModel(
-    //       onTap: () {
-    //         Navigator.pushNamed(context, RoutesName.lucky16);
-    //       },
-    //       title: 'Lucky 16',
-    //       img: Assets.assetsDLucky16),
-    //   DashBoardModel(
-    //       onTap: () {
-    //         Navigator.pushNamed(context, RoutesName.lucky12);
-    //       },
-    //       title: 'Lucky 12',
-    //       img: Assets.assetsDLucky12),
-    //   DashBoardModel(
-    //       onTap: () {
-    //         Navigator.pushNamed(context, RoutesName.game36View);
-    //       },
-    //       title: '36 Timer',
-    //       img: Assets.assetsD36Timer),
-    //   DashBoardModel(
-    //       onTap: () {
-    //         Navigator.pushNamed(context, RoutesName.anderBahar);
-    //       },
-    //       title: 'Ander Bahar',
-    //       img: Assets.assetsDAndarBahar),
-    // ];
     final profileViewModel = Provider.of<ProfileViewModel>(context);
     return PopScope(
       canPop: false,
@@ -239,9 +201,9 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                           Utils.show("User logged out successfully", context);
                           Navigator.pushNamedAndRemoveUntil(
                             context,
-                            RoutesName.login,
-                            (context) => false,
+                            RoutesName.login, (context) => false,
                           );
+                          UserViewModel().remove();
                         },
                         child: Container(
                           height: screenHeight * 0.07,
@@ -259,7 +221,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                       ),
                     ],
                   ),
-                  // SizedBox(height: screenHeight * 0.1),
                   Text("SuperStar".toUpperCase(), style: TextStyle(color: Colors.red, fontSize: Sizes.fontSize12, fontWeight:FontWeight.bold),),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -338,38 +299,6 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
                     ],
                   ),
                   Text('Play For Amusement only', style: TextStyle(color: Colors.black, fontSize: Sizes.fontSize8, fontWeight: FontWeight.w600),),
-
-                  // Container(
-                  //   alignment: Alignment.center,
-                  //   height: screenHeight * 0.75,
-                  //   width: screenWidth * 0.53,
-                  //   // color: Colors.red,
-                  //   child:
-                  //   GridView.builder(
-                  //     physics: const NeverScrollableScrollPhysics(),
-                  //     shrinkWrap: true,
-                  //     padding: const EdgeInsets.all(16.0),
-                  //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  //       crossAxisCount: 3, // Number of columns in the grid
-                  //       crossAxisSpacing: 4,
-                  //       mainAxisSpacing: 4,
-                  //       childAspectRatio: 0.9
-                  //     ),
-                  //     itemCount: dashBoardList.length, // Number of containers
-                  //     itemBuilder: (context, index) {
-                  //       return GestureDetector(
-                  //         onTap: dashBoardList[index].onTap,
-                  //         child: Container(
-                  //           alignment: Alignment.bottomCenter,
-                  //           decoration: BoxDecoration(
-                  //               image: DecorationImage(
-                  //                   image: AssetImage(dashBoardList[index].img),
-                  //                   fit: BoxFit.fill)),
-                  //         ),
-                  //       );
-                  //     },
-                  //   ),
-                  // ),
                 ],
               ),
             ),

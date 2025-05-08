@@ -3,13 +3,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:super_star/10_ka_dum/controller/dus_ka_dum_controller.dart';
 import 'package:super_star/10_ka_dum/view_model/dus_ka_dum_history_view_model.dart';
-import 'package:super_star/andar_bahar/widgets/andar_bahar_history.dart';
 import 'package:super_star/lucky_card_16/widgets/lucky_16_btn.dart';
 import 'package:super_star/main.dart';
 import 'package:super_star/utils/utils.dart';
 import '../../../generated/assets.dart';
 import '../../spin_to_win/view_model/profile_view_model.dart'
     show ProfileViewModel;
+
 
 class DusKaDumHistoryScreen extends StatefulWidget {
   const DusKaDumHistoryScreen({super.key});
@@ -41,6 +41,9 @@ class _DusKaDumHistoryScreenState extends State<DusKaDumHistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final dusKaDumHistory = Provider.of<DusKaDumHistoryViewModel>(
+      context,
+    );
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
@@ -142,9 +145,9 @@ class _DusKaDumHistoryScreenState extends State<DusKaDumHistoryScreen> {
                     ),
                   ],
                 ),
-
                 GestureDetector(
                   onTap: () {
+                    dusKaDumHistory.clearList();
                     Navigator.pop(context);
                   },
                   child: Container(

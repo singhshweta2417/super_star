@@ -432,29 +432,6 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   ],
                 ),
               ),
-              // GestureDetector(
-              //   onTap: () {
-              //     claimPopUp(context);
-              //   },
-              //   child: Container(
-              //     height: Sizes.screenWidth / 22,
-              //     width: Sizes.screenWidth / 10,
-              //     padding: EdgeInsets.only(bottom: 3),
-              //     alignment: Alignment.center,
-              //     decoration: BoxDecoration(
-              //       image: DecorationImage(
-              //         image: AssetImage(Assets.dusKaDumClaimBtnBg),
-              //         fit: BoxFit.fitWidth,
-              //       ),
-              //     ),
-              //     child: CText(
-              //       "claim".toUpperCase(),
-              //       weight: FontWeight.bold,
-              //       color: Color(0xffc70202),
-              //       size: Sizes.fontSize6,
-              //     ),
-              //   ),
-              // ),
               Sizes.spaceH5,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -770,6 +747,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                         listen: false,
                       );
                       dkdCon.disConnectToServer(context);
+                      dkdCon.dusKaDumBets.clear();
                       Navigator.pushReplacementNamed(
                         context,
                         RoutesName.dashboard,

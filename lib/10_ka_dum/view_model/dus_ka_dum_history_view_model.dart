@@ -21,9 +21,6 @@ class DusKaDumHistoryViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
   Lucky16HistoryModel? _dusKaDumHistoryModel;
 
   Lucky16HistoryModel? get dusKaDumHistoryModel => _dusKaDumHistoryModel;
@@ -158,4 +155,13 @@ class DusKaDumHistoryViewModel with ChangeNotifier {
           }
         });
   }
+
+  clearList() {
+    _dusKaDumHistoryModel = null;
+    _dusKaDumTodayResultList = null;
+    _previewData = null;
+    _reportDetailsData = null;
+    notifyListeners();
+  }
+
 }
