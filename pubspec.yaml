@@ -38,6 +38,7 @@ dependencies:
   esc_pos_utils_plus:
   pdf_render:
   image: ^4.5.4
+  device_info_plus: ^11.4.0
 #  barcode_image: ^2.0.3
 
 

@@ -5,6 +5,7 @@ import 'package:super_star/generated/assets.dart';
 import 'package:super_star/main.dart';
 import 'package:super_star/res/app_btn.dart';
 import 'package:super_star/res/custom_text_field.dart';
+import 'package:super_star/spin_to_win/view_model/user_view_model.dart';
 
 import '../spin_to_win/view_model/auth_view_model.dart';
 
@@ -28,13 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordFocusNode.dispose();
     super.dispose();
   }
-  void _handleKey(KeyEvent event) {
+  Future<void> _handleKey(KeyEvent event) async {
+    final deviceId = await UserViewModel.getDeviceId();
     if (event is KeyDownEvent) {
       if (event.logicalKey == LogicalKeyboardKey.enter ||
           event.logicalKey == LogicalKeyboardKey.numpadEnter) {
         Map data = {
           "username": userNameCon.text,
-          "password": passCon.text
+          "password": passCon.text,
+          "device_id":deviceId
         };
         Provider.of<AuthViewModel>(context, listen: false).loginApi(data, context);
       }
@@ -282,10 +285,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         AppBtn(
                           title: 'Login',
                           loading: authViewModel.loading,
-                          onTap: () {
+                          onTap: () async {
+                            final deviceId = await UserViewModel.getDeviceId();
                             Map data = {
                               "username": userNameCon.text,
-                              "password": passCon.text
+                              "password": passCon.text,
+                              "device_id":deviceId
                             };
                             authViewModel.loginApi(data, context);
                           },

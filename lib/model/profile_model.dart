@@ -38,6 +38,7 @@ class Data {
   String? createdAt;
   String? updatedAt;
   dynamic wallet;
+  dynamic deviceId;
 
   Data({
     this.id,
@@ -53,6 +54,7 @@ class Data {
     this.createdAt,
     this.updatedAt,
     this.wallet,
+    this.deviceId
   });
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -69,6 +71,7 @@ class Data {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     wallet = json['wallet'];
+    deviceId=json['device_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +89,7 @@ class Data {
     data['created_at'] = createdAt;
     data['updated_at'] = updatedAt;
     data['wallet'] = wallet;
+    data['device_id']=deviceId;
     return data;
   }
 }

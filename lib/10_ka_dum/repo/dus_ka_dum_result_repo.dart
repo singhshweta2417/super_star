@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:super_star/10_ka_dum/model/last_6_jackpot_model.dart';
 import 'package:super_star/10_ka_dum/res/api_url.dart';
 import 'package:super_star/helper/network/base_api_services.dart';
 import 'package:super_star/helper/network/network_api_services.dart';
@@ -14,6 +15,21 @@ class DusKaDumResultRepository {
       );
       debugPrint("data last result: $response");
       return Lucky16ResultModel.fromJson(response);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error occurred during 10 ka dum result: $e');
+      }
+      rethrow;
+    }
+  }
+
+  Future<Last6JackPotResult> dusKaDumJackpotApi() async {
+    try {
+      dynamic response = await _apiServices.getGetApiResponse(
+        DusKaDumApiUrl.dusKaDumLast6ResultJackpot,
+      );
+      debugPrint("data last result: $response");
+      return Last6JackPotResult.fromJson(response);
     } catch (e) {
       if (kDebugMode) {
         print('Error occurred during 10 ka dum result: $e');

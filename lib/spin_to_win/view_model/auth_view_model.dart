@@ -21,21 +21,23 @@ class AuthViewModel with ChangeNotifier {
   Future<void> loginApi(dynamic data, context) async {
     setLoading(true);
     final userPref = Provider.of<UserViewModel>(context, listen: false);
-    _authRepo.loginApi(data).then((value) {
-      if (value['success'] == true) {
-
-        userPref.saveUser(value['id'].toString());
-        setLoading(false);
-        Navigator.pushReplacementNamed(context, RoutesName.dashboard);
-      } else {
-        setLoading(false);
-        Utils.show(value['message'].toString(), context);
-      }
-    }).onError((error, stackTrace) {
-      setLoading(false);
-      if (kDebugMode) {
-        print('error: $error');
-      }
-    });
+    _authRepo
+        .loginApi(data)
+        .then((value) {
+          if (value['success'] == true) {
+            userPref.saveUser(value['id'].toString());
+            setLoading(false);
+            Navigator.pushReplacementNamed(context, RoutesName.dashboard);
+          } else {
+            setLoading(false);
+            Utils.show(value['message'].toString(), context);
+          }
+        })
+        .onError((error, stackTrace) {
+          setLoading(false);
+          if (kDebugMode) {
+            print('error: $error');
+          }
+        });
   }
 }

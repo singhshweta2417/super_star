@@ -52,7 +52,7 @@ class NetworkApiServices extends BaseApiServices {
       case 200:
         dynamic responseJson = jsonDecode(response.body);
         if (kDebugMode) {
-          // print('response 200: $responseJson');
+          print('response 200: $responseJson');
         }
         return responseJson;
       case 400:
