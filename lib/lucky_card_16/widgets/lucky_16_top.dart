@@ -143,7 +143,8 @@ class _Lucky16TopState extends State<Lucky16Top> {
             ),
             GestureDetector(
               onTap: () {
-                claimPopUp(context);
+                profileViewModel.profileApi(context);
+                // claimPopUp(context);
               },
               child: Image.asset(
                 Assets.assetsClaim,

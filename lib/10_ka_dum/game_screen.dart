@@ -116,7 +116,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
       height: Sizes.screenHeight / 1.15,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [gameSection(), historySection(), dummyPolygon()],
       ),
     );
@@ -125,13 +125,12 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
   Widget gameSection() {
     return Consumer<DusKaDumController>(
       builder: (context, dkdCon, _) {
-        return Container(
-          padding: EdgeInsets.only(top: 5, left: 0, right: 0, bottom: 0),
+        return SizedBox(
           width: Sizes.screenWidth / 1.6,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               gameName(),
-              Sizes.spaceH10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +148,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                           dkdCon.addRowBet(context, index);
                         },
                         child: Container(
-                          margin: EdgeInsets.only(top: screenWidth * 0.05),
+                          margin: EdgeInsets.only(top: screenWidth * 0.042),
                           color: Colors.red,
                           alignment: Alignment.center,
                           height: screenHeight * 0.085,
@@ -158,7 +157,6 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                       );
                     }),
                   ),
-                  Sizes.spaceW15,
                   gameInfo(),
                 ],
               ),
@@ -171,8 +169,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
 
   Widget historySection() {
     return Container(
-      padding: EdgeInsets.only(top: 15, left: 15, right: 15),
-      width: Sizes.screenWidth / 3.5,
+      color: Colors.green,
+      width: Sizes.screenWidth / 4,
       child: dummyTableWidget(),
     );
   }
@@ -191,7 +189,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
     return Consumer<DusKaDumController>(
       builder: (context, dkdCon, _) {
         return SizedBox(
-          height: Sizes.screenHeight / 1.3,
+          height: Sizes.screenHeight / 1.45,
           width: Sizes.screenWidth / 2.9,
           child: Column(
             children: [
@@ -208,9 +206,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                     },
                     child: Container(
                       alignment: Alignment.center,
-                      margin: EdgeInsets.only(
-                        left: screenWidth * 0.01,
-                        right: screenWidth * 0.01,
+                      margin: EdgeInsets.symmetric(
+                        horizontal: screenWidth * 0.008,
                       ),
                       height: screenHeight * 0.045,
                       width: screenWidth * 0.05,
@@ -225,8 +222,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   itemCount: dkdCon.bettingNumberList.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
-                    mainAxisSpacing: 17,
-                    crossAxisSpacing: 17,
+                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 15,
                   ),
                   itemBuilder: (context, int numberIndex) {
                     final number = dkdCon.bettingNumberList[numberIndex];
@@ -249,12 +246,13 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
       DusKaDumCheckViewModel
     >(
       builder: (context, dkdCon, result, check, _) {
-        double size = Sizes.screenWidth / 12;
+        double size = Sizes.screenWidth / 13;
         return Container(
-          width: Sizes.screenWidth / 4.2,
-          padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+          width: Sizes.screenWidth / 4,
+          alignment: Alignment.centerRight,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
                 height: Sizes.screenHeight / 12,
@@ -272,12 +270,10 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   color: Colors.white,
                 ),
               ),
-              Sizes.spaceH10,
               Container(
-                padding: EdgeInsets.only(left: 8),
-                alignment: Alignment.centerLeft,
-                height: Sizes.screenHeight / 28,
-                width: Sizes.screenWidth / 9,
+                alignment: Alignment.center,
+                height: Sizes.screenHeight / 25,
+                width: Sizes.screenWidth / 7,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
@@ -293,54 +289,81 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   color: Colors.black,
                 ),
               ),
-              Row(
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: Sizes.screenHeight / 4,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        labelTile('Balance', "${profileViewModel.balance}"),
-                        labelTile('Draw time', dkdCon.nextDrawTimeFormatted),
-                        labelTile('terminal id', profileViewModel.userName),
-                        labelTile(
-                          'game id',
-                          result.dusKaDumResultList.isNotEmpty
-                              ? (result.dusKaDumResultList.first.periodNo! + 1)
-                                  .toString()
-                              : '',
-                        ),
-                      ],
-                    ),
-                  ),
-                  Sizes.spaceW20,
-                  SizedBox(
-                    height: Sizes.screenHeight / 3.2,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        KeyboardListener(
-                          focusNode: _keyboardFocusNode,
-                          onKeyEvent: _handleKey,
-                          child: InkWell(
-                            onTap: () async {
-                              if (dkdCon.dusKaDumBets.isNotEmpty) {
-                                if (_isKeyLocked) return;
-                                setState(() {
-                                  _isKeyLocked = true;
-                                });
-                                Provider.of<DusKaDumBetViewModel>(
-                                  context,
-                                  listen: false,
-                                ).dusKaDumBetApi(dkdCon.dusKaDumBets, context);
-                                await Future.delayed(Duration(seconds: 1));
-                                setState(() {
-                                  _isKeyLocked = false;
-                                });
-                              } else {
-                                debugPrint("There is not bet placed");
-                              }
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          labelTile('Balance', "${profileViewModel.balance}"),
+                          labelTile('Draw time', dkdCon.nextDrawTimeFormatted),
+                          labelTile('terminal id', profileViewModel.userName),
+                          labelTile(
+                            'game id',
+                            result.dusKaDumResultList.isNotEmpty
+                                ? (result.dusKaDumResultList.first.periodNo! +
+                                        1)
+                                    .toString()
+                                : '',
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          // KeyboardListener(
+                          //   focusNode: _keyboardFocusNode,
+                          //   onKeyEvent: _handleKey,
+                          //   child: InkWell(
+                          //     onTap: () async {
+                          //       if (dkdCon.dusKaDumBets.isNotEmpty) {
+                          //         if (_isKeyLocked) return;
+                          //         setState(() {
+                          //           _isKeyLocked = true;
+                          //         });
+                          //         Provider.of<DusKaDumBetViewModel>(
+                          //           context,
+                          //           listen: false,
+                          //         ).dusKaDumBetApi(
+                          //           dkdCon.dusKaDumBets,
+                          //           context,
+                          //         );
+                          //         await Future.delayed(Duration(seconds: 1));
+                          //         setState(() {
+                          //           _isKeyLocked = false;
+                          //         });
+                          //       } else {
+                          //         debugPrint("There is not bet placed");
+                          //       }
+                          //     },
+                          //     child: Container(
+                          //       height: Sizes.screenWidth / 18,
+                          //       width: Sizes.screenWidth / 18,
+                          //       decoration: BoxDecoration(
+                          //         shape: BoxShape.circle,
+                          //         color: Colors.yellow,
+                          //         image: DecorationImage(
+                          //           image: AssetImage(Assets.dusKaDumPrintIcon),
+                          //           fit: BoxFit.fill,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                barrierDismissible: false,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const DusKaDumHistoryScreen();
+                                },
+                              );
                             },
                             child: Container(
                               height: Sizes.screenWidth / 18,
@@ -349,97 +372,65 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                                 shape: BoxShape.circle,
                                 color: Colors.yellow,
                                 image: DecorationImage(
-                                  image: AssetImage(Assets.dusKaDumPrintIcon),
-                                  fit: BoxFit.fill,
+                                  image: AssetImage(Assets.dusKaDumInfoIcon),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                              barrierDismissible: false,
-                              context: context,
-                              builder: (BuildContext context) {
-                                return const DusKaDumHistoryScreen();
-                              },
-                            );
-                          },
-                          child: Container(
-                            height: Sizes.screenWidth / 18,
-                            width: Sizes.screenWidth / 18,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.yellow,
-                              image: DecorationImage(
-                                image: AssetImage(Assets.dusKaDumInfoIcon),
-                              ),
-                            ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        height: Sizes.screenWidth / 15,
+                        width: Sizes.screenWidth / 15,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(Assets.dusKaDumCircleButton),
+                            fit: BoxFit.fill,
                           ),
                         ),
-                      ],
-                    ),
+                        alignment: Alignment.center,
+                      ),
+                      AnimatedBuilder(
+                        animation: _controller,
+                        builder: (_, child) {
+                          return Transform.rotate(
+                            angle: _controller.value * 2 * pi,
+                            child: child,
+                          );
+                        },
+                        child: Image.asset(
+                          Assets.dusKaDumCircleBorder,
+                          fit: BoxFit.cover,
+                          width: size,
+                          height: size,
+                        ),
+                      ),
+                      result.dusKaDumResultList.isNotEmpty &&
+                              !dkdCon.resultShowTime
+                          ? CText(
+                            result.dusKaDumResultList.first.winNumber
+                                .toString(),
+                            size: Sizes.fontSize12,
+                            color: Colors.white,
+                            weight: FontWeight.bold,
+                          )
+                          : CText(
+                            '0',
+                            size: Sizes.fontSize12,
+                            color: Colors.white,
+                            weight: FontWeight.bold,
+                          ),
+                    ],
                   ),
                 ],
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: size,
-                    width: size,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(
-                          height: Sizes.screenWidth / 14,
-                          width: Sizes.screenWidth / 14,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(Assets.dusKaDumCircleButton),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          alignment: Alignment.center,
-                        ),
-                        AnimatedBuilder(
-                          animation: _controller,
-                          builder: (_, child) {
-                            return Transform.rotate(
-                              angle: _controller.value * 2 * pi,
-                              child: child,
-                            );
-                          },
-                          child: Image.asset(
-                            Assets.dusKaDumCircleBorder,
-                            fit: BoxFit.cover,
-                            width: size,
-                            height: size,
-                          ),
-                        ),
-                        result.dusKaDumResultList.isNotEmpty &&
-                                !dkdCon.resultShowTime
-                            ? CText(
-                              result.dusKaDumResultList.first.winNumber.toString(),
-                              size: Sizes.fontSize12,
-                              color: Colors.white,
-                              weight: FontWeight.bold,
-                            )
-                            : CText(
-                              '0',
-                              size: Sizes.fontSize12,
-                              color: Colors.white,
-                              weight: FontWeight.bold,
-                            ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Sizes.spaceH5,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   textField(ticketController),
                   SizedBox(
@@ -458,9 +449,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   ),
                 ],
               ),
-              Sizes.spaceH10,
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   labelTile(
                     "play",
@@ -501,14 +491,14 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
         fillColor: Colors.white,
         filled: true,
         constraints: BoxConstraints(
-          maxHeight: 35,
-          maxWidth: Sizes.screenWidth / 7,
+          maxHeight: Sizes.screenHeight * 0.08,
+          maxWidth: Sizes.screenWidth * 0.15,
         ),
         contentPadding: EdgeInsets.only(
-          left: 10,
+          left: Sizes.screenWidth * 0.01,
           top: 0,
-          right: 10,
-          bottom: 14,
+          right: Sizes.screenWidth * 0.01,
+          bottom: Sizes.screenHeight * 0.01,
         ),
         border: border,
         enabledBorder: border,
@@ -587,8 +577,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
     double? width,
   }) {
     return Container(
-      padding: EdgeInsets.only(left: 8),
-      alignment: Alignment.centerLeft,
+      margin: EdgeInsets.symmetric(vertical: Sizes.screenHeight * 0.008),
+      alignment: Alignment.center,
       height: Sizes.screenHeight / 20,
       width: Sizes.screenWidth / (width ?? 7),
       decoration: BoxDecoration(
@@ -672,9 +662,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 7,
+                      padding: EdgeInsets.symmetric(
+                        vertical: Sizes.screenHeight * 0.01,
                       ),
                       child: Text(
                         resultData[i].time.toString().substring(11, 16),
@@ -688,9 +677,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   ),
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 7,
+                      padding: EdgeInsets.symmetric(
+                        vertical: Sizes.screenHeight * 0.01,
                       ),
                       child: Text(
                         resultData[i].winNumber.toString(),
@@ -709,9 +697,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                             : Colors.transparent,
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 7,
+                        padding: EdgeInsets.symmetric(
+                          vertical: Sizes.screenHeight * 0.01,
                         ),
                         child: Text(
                           resultData[i].jackpot > 1
@@ -737,137 +724,149 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
   Widget dummyPolygon() {
     return Consumer<DusKaDumResultViewModel>(
       builder: (context, dkdResultVm, _) {
-        return Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierColor: Colors.transparent,
-                    builder: (BuildContext context) {
-                      return Luck16ExitPopUp(
-                        yes: () {
-                          final dkdCon = Provider.of<DusKaDumController>(
-                            context,
-                            listen: false,
-                          );
-                          dkdCon.disConnectToServer(context);
-                          dkdCon.dusKaDumBets.clear();
-                          Navigator.pushReplacementNamed(
-                            context,
-                            RoutesName.dashboard,
-                          );
-                        },
-                      );
-                    },
-                  );
-                },
-                child: Container(
-                  height: screenWidth * 0.03,
-                  width: screenWidth * 0.03,
-                  margin: EdgeInsets.only(right: screenWidth * 0.01),
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(Assets.lucky12Close),
-                      fit: BoxFit.fill,
-                    ),
+        return Column(
+          children: [
+            GestureDetector(
+              onTap: () {
+                showDialog(
+                  context: context,
+                  barrierColor: Colors.transparent,
+                  builder: (BuildContext context) {
+                    return Luck16ExitPopUp(
+                      yes: () {
+                        final dkdCon = Provider.of<DusKaDumController>(
+                          context,
+                          listen: false,
+                        );
+                        dkdCon.disConnectToServer(context);
+                        dkdCon.dusKaDumBets.clear();
+                        Navigator.pushReplacementNamed(
+                          context,
+                          RoutesName.dashboard,
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+              child: Container(
+                height: screenWidth * 0.03,
+                width: screenWidth * 0.03,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(Assets.lucky12Close),
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
-              if(dkdResultVm.last6jackPotResult != null)
+            ),
+            if (dkdResultVm.last6jackPotResult != null)
               Column(
-                children: List.generate(dkdResultVm.last6jackPotResult!.result16!.length, (i) {
-                  final jackPotData= dkdResultVm.last6jackPotResult!.result16![i];
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    height: Sizes.screenWidth / 20,
-                    width: Sizes.screenWidth / 20,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      image: DecorationImage(
-                        image: AssetImage(Assets.dusKaDum8Side),
+                children: List.generate(
+                  dkdResultVm.last6jackPotResult!.result16!.length,
+                  (i) {
+                    final jackPotData =
+                        dkdResultVm.last6jackPotResult!.result16![i];
+                    return Container(
+                      margin: EdgeInsets.symmetric(
+                        vertical: Sizes.screenHeight * 0.012,
                       ),
-                    ),
-                    child: Text("${jackPotData.jackpot}X", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-                  );
-                }),
+                      height: Sizes.screenWidth / 20,
+                      width: Sizes.screenWidth / 20,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        image: DecorationImage(
+                          image: AssetImage(Assets.dusKaDum8Side),
+                        ),
+                      ),
+                      child: Text(
+                        "${jackPotData.jackpot}X",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ],
-          ),
+          ],
         );
-      }
+      },
     );
   }
 
   Widget bottomActionBar() {
     return Consumer<DusKaDumController>(
       builder: (context, dkdCon, _) {
-        return Container(
-          width: Sizes.screenWidth,
-          height: Sizes.screenHeight / 9,
-          alignment: Alignment.bottomCenter,
-          padding: EdgeInsets.only(right: 15, left: 15),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Sizes.spaceW15,
-              radialButton(
-                height: 10,
-                radius: 30,
-                bColor: Color(0xffEFC978),
-                child: Row(
-                  children: List.generate(dkdCon.coinList.length, (coinIndex) {
-                    final coin = dkdCon.coinList[coinIndex];
-                    return coinData(coin);
-                  }),
-                ),
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            radialButton(
+              bColor: Color(0xffEFC978),
+              child: Row(
+                children: List.generate(dkdCon.coinList.length, (coinIndex) {
+                  final coin = dkdCon.coinList[coinIndex];
+                  return coinData(coin);
+                }),
               ),
-              actionButtons(
-                'Rebate',
-                onTap: () {
-                  dkdCon.rebate();
-                },
-              ),
-              actionButtons(
-                'Double Up',
-                onTap: () {
-                  dkdCon.doubleUpBet();
-                },
-              ),
-              actionButtons(
-                'Clear',
-                onTap: () {
-                  dkdCon.clearBet();
-                },
-              ),
-              actionButtons(
-                'Exit',
-                onTap: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          ),
+            ),
+            actionButtons(
+              'Ok Bet',
+              onTap: () async {
+                if (dkdCon.dusKaDumBets.isNotEmpty) {
+                  if (_isKeyLocked) return;
+                  setState(() {
+                    _isKeyLocked = true;
+                  });
+                  Provider.of<DusKaDumBetViewModel>(
+                    context,
+                    listen: false,
+                  ).dusKaDumBetApi(dkdCon.dusKaDumBets, context);
+                  await Future.delayed(Duration(seconds: 1));
+                  setState(() {
+                    _isKeyLocked = false;
+                  });
+                } else {
+                  debugPrint("There is not bet placed");
+                }
+              },
+            ),
+            actionButtons(
+              'Rebate',
+              onTap: () {
+                dkdCon.rebate();
+              },
+            ),
+            actionButtons(
+              'Double Up',
+              onTap: () {
+                dkdCon.doubleUpBet();
+              },
+            ),
+            actionButtons(
+              'Clear',
+              onTap: () {
+                dkdCon.clearBet();
+              },
+            ),
+            actionButtons(
+              'Exit',
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
         );
       },
     );
   }
 
-  radialButton({
-    Color bColor = Colors.blue,
-    Widget? child,
-    double radius = 15,
-    double width = 2.7,
-    double height = 8,
-  })
-  {
+  radialButton({Color bColor = Colors.blue, Widget? child, double? radius}) {
     return Container(
-      height: Sizes.screenHeight / (height),
-      width: Sizes.screenWidth / (width),
-      padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+      height: Sizes.screenHeight * 0.1,
+      width: Sizes.screenWidth * 0.37,
       decoration: BoxDecoration(
         color: Colors.black,
         border: Border(
@@ -876,8 +875,8 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
           right: BorderSide(color: bColor, width: 2),
         ),
         borderRadius: BorderRadius.only(
-          topRight: Radius.circular(radius),
-          topLeft: Radius.circular(radius),
+          topRight: Radius.circular(15),
+          topLeft: Radius.circular(15),
         ),
       ),
       alignment: Alignment.center,
@@ -888,32 +887,34 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
   Widget coinData(LuckyCoinModel coin) {
     return Consumer<DusKaDumController>(
       builder: (context, dkdCon, _) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: GestureDetector(
-            onTap: () {
-              dkdCon.selectChip(coin.value);
-            },
-            child: Container(
-              height: Sizes.screenWidth / 28,
-              width: Sizes.screenWidth / 28,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border:
-                    dkdCon.selectedChip == coin.value
-                        ? Border.all(color: Color(0xffEFC978), width: 2.5)
-                        : null,
-                image: DecorationImage(
-                  image: AssetImage(coin.image),
-                  fit: BoxFit.fill,
-                ),
+        return GestureDetector(
+          onTap: () {
+            dkdCon.selectChip(coin.value);
+          },
+          child: Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: Sizes.screenWidth * 0.005,
+              vertical: Sizes.screenHeight * 0.008,
+            ),
+            height: Sizes.screenWidth * 0.04,
+            width: Sizes.screenWidth * 0.04,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border:
+                  dkdCon.selectedChip == coin.value
+                      ? Border.all(color: Color(0xffEFC978), width: 2.5)
+                      : null,
+              image: DecorationImage(
+                image: AssetImage(coin.image),
+                fit: BoxFit.fill,
               ),
-              alignment: Alignment.center,
-              child: CText(
-                "${coin.value}",
-                color: Colors.black,
-                weight: FontWeight.bold,
-              ),
+            ),
+            alignment: Alignment.center,
+            child: CText(
+              "${coin.value}",
+              color: Colors.black,
+              weight: FontWeight.bold,
+              size: 12,
             ),
           ),
         );

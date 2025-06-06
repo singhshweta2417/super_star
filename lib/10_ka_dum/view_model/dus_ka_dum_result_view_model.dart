@@ -99,10 +99,10 @@ class DusKaDumResultViewModel with ChangeNotifier {
               setLas6JackPot(value);
               // dusKDCont.setResultShowTime(false);
               // profileViewModel.profileApi(context);
-              Provider.of<DusKaDumController>(
-                context,
-                listen: false,
-              ).getJokerJackPot(value.result16!.first.jackpot ?? 0, context);
+              // Provider.of<DusKaDumController>(
+              //   context,
+              //   listen: false,
+              // ).getJokerJackPot(value.result16!.first.jackpot ?? 0, context);
             });
           } else {
             setLoading(false);

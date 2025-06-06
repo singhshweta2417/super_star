@@ -37,7 +37,7 @@ class _TicketPreviewState extends State<TicketPreview> {
     _keyboardFocusNode.requestFocus();
     super.initState();
   }
-
+  String fileName = "setup.exe";
   void _handleKey(KeyEvent event) {
     if (event is KeyDownEvent) {
       if (event.logicalKey == LogicalKeyboardKey.enter ||
@@ -217,8 +217,9 @@ class _TicketPreviewState extends State<TicketPreview> {
                                         color: Colors.green,
                                       )
                                       : Lucky16Btn(
-                                        title: 'Print',
+                                        title:fileName.toLowerCase().endsWith('.exe')? 'Print':'Bet',
                                         onTap: () async {
+                                          fileName.toLowerCase().endsWith('.exe')?
                                           Provider.of<PrintingController>(
                                             context,
                                             listen: false,
@@ -226,7 +227,7 @@ class _TicketPreviewState extends State<TicketPreview> {
                                             widget.gameData,
                                             widget.betData,
                                             context,
-                                          );
+                                          ):null;
                                         },
                                         height: 30,
                                         fontSize: 15,

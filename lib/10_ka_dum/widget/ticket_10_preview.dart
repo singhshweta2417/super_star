@@ -64,7 +64,7 @@ class _Ticket10PreviewState extends State<Ticket10Preview> {
       }
     }
   }
-
+  String fileName = "setup.exe";
   @override
   Widget build(BuildContext context) {
     final totalPoints = widget.betData.fold<int>(
@@ -214,8 +214,9 @@ class _Ticket10PreviewState extends State<Ticket10Preview> {
                                 color: Colors.green,
                               )
                                   : Lucky16Btn(
-                                title: 'Print',
+                                title:fileName.toLowerCase().endsWith('.exe')? 'Print':'Bet',
                                 onTap: () async {
+                                  fileName.toLowerCase().endsWith('.exe')?
                                   Provider.of<Printing10Controller>(
                                     context,
                                     listen: false,
@@ -223,7 +224,7 @@ class _Ticket10PreviewState extends State<Ticket10Preview> {
                                     widget.gameData,
                                     widget.betData,
                                     context,
-                                  );
+                                  ):null;
                                 },
                                 height: 30,
                                 fontSize: 15,

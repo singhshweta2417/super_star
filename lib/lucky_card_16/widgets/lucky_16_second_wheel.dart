@@ -203,7 +203,7 @@ class Lucky16SecondWheel extends StatefulWidget {
     this.offset = 0,
     required this.pieces,
     this.isShowTextTest = false,
-    this.speed = 900,
+    this.speed = 700,
   });
 
   @override

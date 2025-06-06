@@ -258,7 +258,7 @@ class DusKaDumController extends ChangeNotifier {
   ];
   getJokerJackPot(int jackPot, BuildContext context) {
     final jackpotModel = jackpotList.firstWhere(
-      (e) => e.id == jackPot,
+          (e) => e.id == jackPot,
       orElse: () => JackpotModel(img: '', id: 1),
     );
     if (jackpotModel.id > 1) {
@@ -268,21 +268,19 @@ class DusKaDumController extends ChangeNotifier {
         builder: (_) {
           return Dialog(
             backgroundColor: Colors.transparent,
-            child: Container(
-              height: Sizes.screenWidth / 3,
-              width: Sizes.screenWidth / 3,
+            child:  Container(
+              height:Sizes.screenWidth / 3,
+              width:Sizes.screenWidth / 3,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/jackpot/joker.gif'),
-                  fit: BoxFit.contain,
-                ),
+                  shape: BoxShape.circle,
+                  image: DecorationImage(image: AssetImage('assets/jackpot/joker.gif'),fit: BoxFit.contain)
               ),
+
             ),
           );
         },
       );
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 2,), () {
         Navigator.pop(context);
       });
     }

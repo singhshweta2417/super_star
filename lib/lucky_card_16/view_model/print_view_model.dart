@@ -1,12 +1,10 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:barcode/barcode.dart' as barcode_lib;
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_thermal_printer/flutter_thermal_printer.dart';
@@ -15,7 +13,6 @@ import 'package:print_bluetooth_thermal/print_bluetooth_thermal.dart';
 import 'package:provider/provider.dart';
 import 'package:super_star/lucky_card_16/controller/lucky_16_controller.dart';
 import 'package:super_star/lucky_card_16/view_model/usb_print.dart';
-
 import '../../utils/utils.dart';
 
 

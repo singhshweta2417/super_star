@@ -38,18 +38,22 @@ class Lucky16BetViewModel extends ChangeNotifier {
         .lucky16BetApi(data)
         .then((value) {
           if (value['success'] == true) {
-            profileViewModel.profileApi(context);
+            // Utils.show(value['message'].toString(), context);
+            // profileViewModel.profileApi(context);
             if(l16c.addLucky16Bets.isNotEmpty && l16c.addLucky16Bets !=[] ){
-              Provider.of<PrintingController>(
-                context,
-                listen: false,
-              ).handleReceiptPrinting(value, betList, context);
+              l16c.clearBetPrinting();
+              l16c.clearBetAfterPrint();
+              Utils.show(value['message'].toString(), context);
+              // Provider.of<PrintingController>(
+              //   context,
+              //   listen: false,
+              // ).handleReceiptPrinting(value, betList, context);
             }else{
               if (kDebugMode) {
                 print("it is found null");
               }
             }
-            // setLoading(false);
+            setLoading(false);
           } else {
             setLoading(false);
             Utils.show(value['message'].toString(), context);

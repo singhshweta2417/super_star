@@ -38,16 +38,19 @@ class DusKaDumBetViewModel extends ChangeNotifier {
         .then((value) {
           Utils.show(value['message'], context);
           if (value['success'] == true) {
-            profileViewModel.profileApi(context);
+            // profileViewModel.profileApi(context);
             // Provider.of<DusKaDumController>(
             //   context,
             //   listen: false,
             // ).setLastBetData();
             if(dkdCon.dusKaDumBets.isNotEmpty && dkdCon.dusKaDumBets !=[] ){
-              Provider.of<Printing10Controller>(
-                context,
-                listen: false,
-              ).handleReceiptPrinting(value, betList, context);
+              Utils.show(value['message'].toString(), context);
+              dkdCon.clearBetPrinting();
+              dkdCon.clearBetAfterPrint();
+              // Provider.of<Printing10Controller>(
+              //   context,
+              //   listen: false,
+              // ).handleReceiptPrinting(value, betList, context);
               // dkdCon.dusKaDumBets.clear();
             setLoading(false);
           } else {

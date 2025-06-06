@@ -323,6 +323,7 @@ class _LuckyCard16State extends State<LuckyCard16> {
                                           height: screenHeight * 0.08,
                                           width: screenWidth * 0.15,
                                           margin: const EdgeInsets.all(2),
+                                          alignment: Alignment.center,
                                           decoration: const BoxDecoration(
                                             image: DecorationImage(
                                               image: AssetImage(
@@ -331,25 +332,13 @@ class _LuckyCard16State extends State<LuckyCard16> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 5,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  l16c.showMessage,
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: 'roboto',
-                                                  ),
-                                                ),
-                                              ],
+                                          child:Text(
+                                            l16c.showMessage,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontFamily: 'roboto',
                                             ),
                                           ),
                                         ),
@@ -363,9 +352,6 @@ class _LuckyCard16State extends State<LuckyCard16> {
                               flex: 1,
                               child: Container(
                                 color: Colors.transparent,
-                                // width: screenWidth * 0.5,
-                                // height: screenHeight,
-                                // padding: const EdgeInsets.only(bottom: 5),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -883,11 +869,11 @@ class _LuckyCard16State extends State<LuckyCard16> {
                                             ],
                                           ),
                                           SizedBox(width: screenWidth * 0.01),
-
                                           Stack(
                                             children: [
                                               Lucky16Btn(
-                                                title: 'PRINT',
+                                                title: 'OK BET',
+                                                // title: 'PRINT',
                                                 onTap: () async {
                                                     if (l16c
                                                         .addLucky16Bets
@@ -989,6 +975,7 @@ class _LuckyCard16State extends State<LuckyCard16> {
       ),
     );
   }
+
 }
 
 BoxDecoration getBoxDecoration(int amount) {

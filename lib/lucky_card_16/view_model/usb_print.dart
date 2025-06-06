@@ -11,7 +11,6 @@ import 'package:thermal_printer/thermal_printer.dart';
 import 'package:image/image.dart' as img;
 import '../../spin_to_win/view_model/profile_view_model.dart';
 import '../controller/lucky_16_controller.dart';
-import 'lucky_16_bet_view_model.dart';
 
 class BluetoothPrinter {
   int? id;

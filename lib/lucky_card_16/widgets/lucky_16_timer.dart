@@ -34,18 +34,20 @@ class Lucky16Timer extends StatelessWidget {
                 Colors.green,
                 Colors.green,
                 Colors.green,
-              ], stops: [
+              ],
+             stops: [
                 0.0,
-                0.2,
-                0.4,
+                0.3,
                 0.6,
-                0.8,
-                1.0
-              ]),
+                0.9,
+                0.12,
+                1.5
+              ]
+              ),
             ),
             Container(
-                height: screenHeight * 0.16,
-                width: screenHeight * 0.16,
+                height: screenHeight * 0.15,
+                width: screenHeight * 0.15,
                 alignment: Alignment.center,
                 // padding: const EdgeInsets.only(bottom: 8),
                 decoration: const BoxDecoration(
@@ -60,7 +62,7 @@ class Lucky16Timer extends StatelessWidget {
                       color: l16c.timerStatus == 1
                           ? const Color(0xff02ff03)
                           : Colors.red,
-                      fontSize: screenHeight * 0.09,
+                      fontSize: screenHeight * 0.065,
                       fontFamily: 'digital'),
                 ))
           ],
