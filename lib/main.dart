@@ -38,6 +38,7 @@ import '10_ka_dum/view_model/dus_ka_dum_history_view_model.dart'
 import '10_ka_dum/view_model/dus_ka_dum_result_view_model.dart';
 import '10_ka_dum/view_model/print_view_10_model.dart';
 import '10_ka_dum/view_model/usb_print_10.dart';
+import 'lucky_card_16/view_model/claim_winning_view_model.dart';
 import 'lucky_card_16/view_model/lucky_16_bet_view_model.dart';
 import 'lucky_card_16/view_model/lucky_16_check_view_model.dart';
 import 'lucky_card_16/view_model/print_view_model.dart';
@@ -111,6 +112,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AndarBaharController()),
         ChangeNotifierProvider(create: (context) => PrintingController()),
         ChangeNotifierProvider(create: (context) => UsbPrintDusViewModel()),
+        ChangeNotifierProvider(create: (context) => ClaimWinningViewModel()),
         ChangeNotifierProvider(
           create: (context) => AndarBaharResultViewModel(),
         ),

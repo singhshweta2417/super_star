@@ -5,8 +5,12 @@ class ApiUrl {
   static const lucky16history = "${baseUrl}bet_history?limit=50&user_id=";
   static const checkTicket = "${baseUrl}check-ticket";
   static const todayResult = "${baseUrl}today_result";
-  static const previewResult = "https://superstar.fctechteam.org/api/gameticket_detail";
+  static const previewResult =
+      "https://superstar.fctechteam.org/api/gameticket_detail";
   static const gameReport = "https://superstar.fctechteam.org/api/user-bets";
+  static const claimWinning =
+      "https://superstar.fctechteam.org/api/claim_winning";
+
   // socket api
   static const timerLucky16Url = "https://aviatorudaan.com/";
   static const timerEvent = "npllucky16";

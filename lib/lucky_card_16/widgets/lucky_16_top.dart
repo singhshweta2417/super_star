@@ -12,6 +12,7 @@ import 'package:super_star/res/app_constant.dart';
 import 'package:super_star/utils/routes/routes_name.dart';
 
 import '../../spin_to_win/view_model/profile_view_model.dart';
+import '../view_model/claim_winning_view_model.dart';
 
 class Lucky16Top extends StatefulWidget {
   const Lucky16Top({super.key});
@@ -25,6 +26,7 @@ class _Lucky16TopState extends State<Lucky16Top> {
 
   @override
   Widget build(BuildContext context) {
+    final claimBet = Provider.of<ClaimWinningViewModel>(context);
     final profileViewModel = Provider.of<ProfileViewModel>(context);
     final lucky16ResultViewModel = Provider.of<Lucky16ResultViewModel>(context);
     final balanceWithWinAmount =
@@ -143,7 +145,7 @@ class _Lucky16TopState extends State<Lucky16Top> {
             ),
             GestureDetector(
               onTap: () {
-                profileViewModel.profileApi(context);
+                claimBet.claimWinningApi(context);
                 // claimPopUp(context);
               },
               child: Image.asset(
