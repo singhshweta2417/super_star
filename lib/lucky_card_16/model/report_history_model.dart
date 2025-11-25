@@ -22,19 +22,19 @@ class ReportDetailsModel {
 }
 
 class Data {
-  dynamic userId;
-  dynamic totalWinAmount;
-  dynamic totalBetAmount;
-  dynamic totalClaimAmount;
-  dynamic totalUnclaimAmount;
-  dynamic totalPercent;
-  dynamic totalProfit;
+  String? date;
+  int? totalBetAmount;
+  int? totalWinAmount;
+  int? totalClaimAmount;
+  int? totalUnclaimAmount;
+  int? totalPercent;
+  int? totalProfit;
   List<Bets>? bets;
 
   Data(
-      {this.userId,
-        this.totalWinAmount,
+      {this.date,
         this.totalBetAmount,
+        this.totalWinAmount,
         this.totalClaimAmount,
         this.totalUnclaimAmount,
         this.totalPercent,
@@ -42,9 +42,9 @@ class Data {
         this.bets});
 
   Data.fromJson(Map<String, dynamic> json) {
-    userId = json['user_id'];
-    totalWinAmount = json['total_win_amount'];
+    date = json['date'];
     totalBetAmount = json['total_bet_amount'];
+    totalWinAmount = json['total_win_amount'];
     totalClaimAmount = json['total_claim_amount'];
     totalUnclaimAmount = json['total_unclaim_amount'];
     totalPercent = json['total_percent'];
@@ -59,9 +59,9 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['user_id'] = userId;
-    data['total_win_amount'] = totalWinAmount;
+    data['date'] = date;
     data['total_bet_amount'] = totalBetAmount;
+    data['total_win_amount'] = totalWinAmount;
     data['total_claim_amount'] = totalClaimAmount;
     data['total_unclaim_amount'] = totalUnclaimAmount;
     data['total_percent'] = totalPercent;
@@ -72,7 +72,6 @@ class Data {
     return data;
   }
 }
-
 class Bets {
   String? betDate;
   String? ticketId;
@@ -121,3 +120,6 @@ class Bets {
     return data;
   }
 }
+
+
+

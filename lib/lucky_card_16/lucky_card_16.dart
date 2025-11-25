@@ -332,7 +332,8 @@ class _LuckyCard16State extends State<LuckyCard16> {
                                               fit: BoxFit.fill,
                                             ),
                                           ),
-                                          child:Text(
+                                          child:l16c.showMessage!=''?
+                                          Text(
                                             l16c.showMessage,
                                             style: TextStyle(
                                               fontSize: 12,
@@ -340,6 +341,28 @@ class _LuckyCard16State extends State<LuckyCard16> {
                                               fontWeight: FontWeight.bold,
                                               fontFamily: 'roboto',
                                             ),
+                                          ): Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceEvenly,
+                                            children: [
+                                              textWidget(
+                                                text: "Win :",
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                AppConstant.luckyRoFont,
+                                              ),
+                                              textWidget(
+                                                text: lucky16ResultViewModel
+                                                    .winAmount
+                                                    .toString(),
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                AppConstant.luckyRoFont,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],

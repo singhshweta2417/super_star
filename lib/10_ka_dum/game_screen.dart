@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:super_star/10_ka_dum/res/sizes_const.dart';
 import 'package:super_star/10_ka_dum/res/text_const.dart';
+import 'package:super_star/10_ka_dum/view_model/claim_winning_d_view_model.dart';
 import 'package:super_star/10_ka_dum/view_model/dus_ka_dum_bet_view_model.dart';
 import 'package:super_star/10_ka_dum/view_model/dus_ka_dum_check_view_model.dart';
 import 'package:super_star/10_ka_dum/view_model/dus_ka_dum_result_view_model.dart';
@@ -239,12 +240,12 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
   }
 
   Widget gameInfo() {
+    final claimBet = Provider.of<ClaimWinningDKDViewModel>(context);
     final profileViewModel = Provider.of<ProfileViewModel>(context);
     return Consumer3<
       DusKaDumController,
       DusKaDumResultViewModel,
-      DusKaDumCheckViewModel
-    >(
+      DusKaDumCheckViewModel>(
       builder: (context, dkdCon, result, check, _) {
         double size = Sizes.screenWidth / 13;
         return Container(
@@ -314,8 +315,29 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          KeyboardListener(
+                            focusNode: _keyboardFocusNode,
+                            onKeyEvent: _handleKey,
+                            child: InkWell(
+                              onTap: () async {
+                                claimBet.claimWinningDApi(context);
+                              },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(vertical: screenHeight*0.012),
+                                height: Sizes.screenWidth / 27,
+                                width: Sizes.screenWidth / 18,
+                                decoration: BoxDecoration(
+                                  color: Colors.yellow,
+                                  image: DecorationImage(
+                                    image: AssetImage(Assets.assetsClaim),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                           // KeyboardListener(
                           //   focusNode: _keyboardFocusNode,
                           //   onKeyEvent: _handleKey,
@@ -464,7 +486,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                   ),
                   labelTile(
                     "win",
-                    "0",
+                    result.winAmount.toString(),
                     textColor: Color(0xffc70202),
                     width: 10,
                     borderRadius: BorderRadius.only(
@@ -473,8 +495,7 @@ class _DusKaDamGameScreenState extends State<DusKaDamGameScreen>
                     ),
                   ),
                 ],
-              ),
-            ],
+              ),            ],
           ),
         );
       },

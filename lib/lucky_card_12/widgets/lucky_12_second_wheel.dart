@@ -79,7 +79,6 @@ class _Lucky12SecondWheelState extends State<Lucky12SecondWheel>
           setState(() {
             statusWheel = 1;
             _controllerStart.stop();
-
             _controllerMiddle.forward();
           });
         }

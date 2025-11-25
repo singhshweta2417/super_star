@@ -55,7 +55,7 @@ class TripleChanceController with ChangeNotifier {
       TripleChanceBetViewModel();
   void connectToServer(context) async {
     _socket = IO.io(
-      ApiUrl.timerTripleChanceUrl,
+      ApiUrlTriple.timerTripleChanceUrl,
       IO.OptionBuilder().setTransports(['websocket']).build(),
     );
     _socket.on('connect', (_) {
@@ -68,7 +68,7 @@ class TripleChanceController with ChangeNotifier {
         print('Connection error: $errorData');
       }
     });
-    _socket.on(ApiUrl.timerEvent, (timerData) {
+    _socket.on(ApiUrlTriple.timerEvent, (timerData) {
       final receiveData = jsonDecode(timerData);
       setData(receiveData['timerBetTime'], receiveData['timerStatus']);
       // bet on

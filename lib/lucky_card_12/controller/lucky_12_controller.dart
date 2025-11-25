@@ -182,7 +182,6 @@ class Lucky12Controller with ChangeNotifier {
       final profileViewModel =
           Provider.of<ProfileViewModel>(context, listen: false);
       List<int> cardIds = [];
-
       switch (rowIndex) {
         case 0:
           cardIds = [1, 2, 3, 4];

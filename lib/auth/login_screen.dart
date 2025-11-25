@@ -9,7 +9,6 @@ import 'package:super_star/spin_to_win/view_model/user_view_model.dart';
 
 import '../spin_to_win/view_model/auth_view_model.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -29,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     passwordFocusNode.dispose();
     super.dispose();
   }
+
   Future<void> _handleKey(KeyEvent event) async {
     final deviceId = await UserViewModel.getDeviceId();
     if (event is KeyDownEvent) {
@@ -37,12 +37,16 @@ class _LoginScreenState extends State<LoginScreen> {
         Map data = {
           "username": userNameCon.text,
           "password": passCon.text,
-          "device_id":deviceId
+          "device_id": deviceId,
         };
-        Provider.of<AuthViewModel>(context, listen: false).loginApi(data, context);
+        Provider.of<AuthViewModel>(
+          context,
+          listen: false,
+        ).loginApi(data, context);
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
@@ -61,8 +65,11 @@ class _LoginScreenState extends State<LoginScreen> {
               height: screenHeight,
               width: screenWidth,
               decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage(Assets.assetsAuthBg), fit: BoxFit.fill)),
+                image: DecorationImage(
+                  image: AssetImage(Assets.assetsAuthBg),
+                  fit: BoxFit.fill,
+                ),
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -71,7 +78,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: screenWidth * 0.60,
                     child: Padding(
                       padding: EdgeInsets.only(
-                          top: screenHeight * 0.05, left: screenHeight * 0.10),
+                        top: screenHeight * 0.05,
+                        left: screenHeight * 0.10,
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,23 +99,27 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: const Padding(
                                     padding: EdgeInsets.only(right: 20),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           'STRICTLY FOR AMUSEMENT ONLY',
                                           style: TextStyle(
-                                              color: Color(0xffb61514),
-                                              fontSize: 9,
-                                              fontWeight: FontWeight.bold),
+                                            color: Color(0xffb61514),
+                                            fontSize: 9,
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                         Text(
                                           'You Should be eighteen years and above.',
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 7,
-                                              fontWeight: FontWeight.bold),
-                                        )
+                                            color: Colors.white,
+                                            fontSize: 7,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -118,10 +131,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   height: screenHeight * 0.15,
                                   width: screenHeight * 0.15,
                                   decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: AssetImage(
-                                              Assets.assets18Plus))),
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: AssetImage(Assets.assets18Plus),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],
@@ -132,7 +146,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               border: Border.all(
-                                  width: 1, color: Colors.white.withValues(alpha: 0.4)),
+                                width: 1,
+                                color: Colors.white.withValues(alpha: 0.4),
+                              ),
                               color: const Color(0xff000000),
                             ),
                             child: Row(
@@ -144,17 +160,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Text(
                                       'FREE TO PLAY',
                                       style: TextStyle(
-                                          color: Color(0xffb61514),
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                        color: Color(0xffb61514),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                     Text(
                                       'Amusement and Social Gaming Site',
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.bold),
-                                    )
+                                        color: Colors.white,
+                                        fontSize: 8,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
                                   ],
                                 ),
                                 Column(
@@ -193,18 +211,20 @@ class _LoginScreenState extends State<LoginScreen> {
                                           TextSpan(
                                             text: '# Get ',
                                             style: TextStyle(
-                                                color: Colors
-                                                    .white), // Default text color
+                                              color: Colors.white,
+                                            ), // Default text color
                                           ),
                                           TextSpan(
                                             text: '100 Free chips ',
-                                            style: TextStyle(color: Colors.green),
+                                            style: TextStyle(
+                                              color: Colors.green,
+                                            ),
                                           ),
                                           TextSpan(
                                             text: 'on every login',
                                             style: TextStyle(
-                                                color: Colors
-                                                    .white), // Default text color
+                                              color: Colors.white,
+                                            ), // Default text color
                                           ),
                                         ],
                                       ),
@@ -212,9 +232,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     const Text(
                                       '# NO Roadmaption (or) Cash Winnings',
                                       style: TextStyle(
-                                          fontSize: 9,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                                        fontSize: 9,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     RichText(
                                       text: const TextSpan(
@@ -243,7 +264,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -264,24 +285,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           // inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           focusNode: mobileFocusNode,
                           //onChanged: (val){
-                            // if(val.length==10){
-                            //   FocusScope.of(context).requestFocus(passwordFocusNode);
-                            // }
+                          // if(val.length==10){
+                          //   FocusScope.of(context).requestFocus(passwordFocusNode);
+                          // }
                           //},
                         ),
-                        SizedBox(
-                          height: screenHeight * 0.03,
-                        ),
+                        SizedBox(height: screenHeight * 0.03),
                         CustomTextField(
                           title: 'Password',
                           controller: passCon,
                           focusNode: passwordFocusNode,
-                          icon: const Icon(Icons.lock_outline_sharp,
-                              color: Colors.grey),
+                          icon: const Icon(
+                            Icons.lock_outline_sharp,
+                            color: Colors.grey,
+                          ),
                         ),
-                        SizedBox(
-                          height: screenHeight * 0.1,
-                        ),
+                        SizedBox(height: screenHeight * 0.1),
                         AppBtn(
                           title: 'Login',
                           loading: authViewModel.loading,
@@ -290,7 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Map data = {
                               "username": userNameCon.text,
                               "password": passCon.text,
-                              "device_id":deviceId
+                              "device_id": deviceId,
                             };
                             authViewModel.loginApi(data, context);
                           },

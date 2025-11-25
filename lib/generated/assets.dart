@@ -46,6 +46,7 @@ class Assets {
   static const String assetsGameIcon = 'assets/game_icon.png';
   static const String assetsImg = 'assets/img.png';
   static const String assetsImg1 = 'assets/img_1.png';
+  static const String assetsJackpotJoker = 'assets/jackpot/joker.png';
   static const String assetsK = 'assets/K.png';
   static const String assetsMic1 = 'assets/mic-1.png';
   static const String assetsMic2 = 'assets/mic-2.png';
@@ -152,7 +153,7 @@ class Assets {
   static const String jackpot7x = 'assets/jackpot/7x.png';
   static const String jackpot8x = 'assets/jackpot/8x.png';
   static const String jackpot9x = 'assets/jackpot/9x.png';
-  static const String jackpotJoker = 'assets/jackpot/joker.png';
+  static const String jackpotJoker = 'assets/jackpot/joker.gif';
   static const String jackpotN = 'assets/jackpot/n.png';
   static const String lucky12A = 'assets/lucky_12/a.png';
   static const String lucky12C = 'assets/lucky_12/c.png';
@@ -212,6 +213,7 @@ class Assets {
   static const String lucky16LWheelBgOne = 'assets/lucky_16/l_wheel_bg_one.png';
   static const String lucky16LuckyBg = 'assets/lucky_16/lucky_bg.png';
   static const String soundBeep = 'assets/sound/beep.mp3';
+  static const String soundCoinSingle = 'assets/sound/coin_single.mp3';
   static const String soundMusicOne = 'assets/sound/musicOne.mp3';
   static const String soundNoMoreBet = 'assets/sound/no_more_bet.mp3';
   static const String soundRouletteWheel = 'assets/sound/roulette_wheel.mp3';

@@ -1,4 +1,5 @@
 class DusKaDumApiUrl {
+
   static const baseUrl = "https://superstar.fctechteam.org/api/10_kadam/";
   static const dusKaDumBet = "${baseUrl}bet";
   static const dusKaDumResult = "${baseUrl}result?user_id=";
@@ -8,6 +9,9 @@ class DusKaDumApiUrl {
   static const dusKaDumGameTicketDetail = "${baseUrl}gameticket_detail";
   static const dusKaDumGameReport = "${baseUrl}user-bets";
   static const dusKaDumLast6ResultJackpot = "${baseUrl}lastjackpot";
+  static const claimWinningD =
+      "https://superstar.fctechteam.org/api/10_kadam/claim_winning";
+
   // socket api
   static const timerDusKaDumUrl = "https://aviatorudaan.com/";
   static const dusKaDumTimerEvent = "10kadam";

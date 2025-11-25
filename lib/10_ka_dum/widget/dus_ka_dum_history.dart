@@ -540,7 +540,8 @@ class _ReportDetailsState extends State<ReportDetails> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            commonWidget('Name', screenHeight * 0.2),
+            // commonWidget('Name', screenHeight * 0.2),
+            commonWidget('Date', screenHeight * 0.28),
             commonWidget('play', screenHeight * 0.45),
             commonWidget('win', screenHeight * 0.2),
             commonWidget('claim', screenHeight * 0.2),
@@ -567,15 +568,20 @@ class _ReportDetailsState extends State<ReportDetails> {
                           //   (card) => card.id == int.parse(data.winNumber.toString()),
                           // );
                           return Container(
-                            color: Colors.grey,
+                            color:Colors.grey,
                             padding: EdgeInsets.only(top: 3, bottom: 5),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
+                                // commonWidget(
+                                //   profileViewModel.userName,
+                                //   screenHeight * 0.2,
+                                //   fotSize: 20,
+                                // ),
                                 commonWidget(
-                                  profileViewModel.userName,
-                                  screenHeight * 0.2,
-                                  fotSize: 20,
+                                  '${data.date}',
+                                  screenHeight * 0.28,
+                                  fotSize: 18,
                                 ),
                                 commonWidget(
                                   '${data.totalBetAmount}',
@@ -641,4 +647,5 @@ class _ReportDetailsState extends State<ReportDetails> {
       ),
     );
   }
+
 }

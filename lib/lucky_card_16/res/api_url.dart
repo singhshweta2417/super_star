@@ -15,3 +15,4 @@ class ApiUrl {
   static const timerLucky16Url = "https://aviatorudaan.com/";
   static const timerEvent = "npllucky16";
 }
+//https://superstar.fctechteam.org/api/lucky16/

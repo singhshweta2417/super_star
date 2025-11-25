@@ -14,7 +14,7 @@ class TripleChanceHistoryRepository {
   Future<TripleChanceHistoryModel> tripleChanceHistoryApi(dynamic data) async {
     try {
       dynamic response =
-      await _apiServices.getGetApiResponse(ApiUrl.tripleChanceHistory+ data);
+      await _apiServices.getGetApiResponse(ApiUrlTriple.tripleChanceHistory+ data);
       return TripleChanceHistoryModel.fromJson(response);
     } catch (e) {
       if (kDebugMode) {

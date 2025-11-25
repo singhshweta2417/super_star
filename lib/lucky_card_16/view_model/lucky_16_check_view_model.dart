@@ -47,7 +47,6 @@ class Lucky16CheckViewModel with ChangeNotifier {
               context: context,
               builder: (context) {
                 return WinnerClaimPopup(ticketData: ticket);
-
               },
             );
           });

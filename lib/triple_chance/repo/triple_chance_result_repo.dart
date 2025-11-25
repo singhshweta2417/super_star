@@ -11,7 +11,7 @@ class TripleChanceResultRepository {
   Future<TripleChanceResultModel> tripleChanceResultApi(dynamic data) async {
     try {
       dynamic response =
-      await _apiServices.getGetApiResponse(ApiUrl.tripleChanceResult+data);
+      await _apiServices.getGetApiResponse(ApiUrlTriple.tripleChanceResult+data);
       return TripleChanceResultModel.fromJson(response);
     } catch (e) {
       if (kDebugMode) {

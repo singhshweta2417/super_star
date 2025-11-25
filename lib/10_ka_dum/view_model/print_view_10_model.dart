@@ -39,19 +39,25 @@ class Printing10Controller extends ChangeNotifier {
     return data.buffer.asUint8List();
   }
 
-  Future<void> handleReceiptPrinting(dynamic gameData,List<dynamic> betData,context) async {
+  Future<void> handleReceiptPrinting(
+    dynamic gameData,
+    List<dynamic> betData,
+    context,
+  ) async {
     setDownloading(true);
-    final l16c = Provider.of<DusKaDumController>(context, listen: false);
-    l16c.clearBetPrinting();
-    l16c.setBetPrinting(betData);
-    l16c.clearBetAfterPrint();
+    final dkd = Provider.of<DusKaDumController>(context, listen: false);
+    dkd.clearBetPrinting();
+    dkd.setBetPrinting(betData);
+    dkd.clearBetAfterPrint();
     Provider.of<UsbPrintDusViewModel>(
       context,
       listen: false,
-    ).createAndPrintTicket(gameData, context,);
+    ).createAndPrintTicket(gameData, context);
 
-    debugPrint("betData length 2: ${l16c.addDusKDBetsPrinting.length}");
-    debugPrint("here we got the pet printing data: ${ l16c.addDusKDBetsPrinting}");
+    debugPrint("betData length 2: ${dkd.addDusKDBetsPrinting.length}");
+    debugPrint(
+      "here we got the pet printing data: ${dkd.addDusKDBetsPrinting}",
+    );
   }
 
   Future<void> connect(String mac, dynamic gameData, context) async {
@@ -66,7 +72,7 @@ class Printing10Controller extends ChangeNotifier {
         "Failed to connecting with printer, PDF download proceeded.",
         context,
       );
-      await saveReceiptAsPdf(gameData, context,);
+      await saveReceiptAsPdf(gameData, context);
     }
   }
 
@@ -82,33 +88,29 @@ class Printing10Controller extends ChangeNotifier {
 
     _devicesStreamSubscription = _flutterThermalPrinterPlugin.devicesStream
         .listen((List<Printer> event) {
-      printers =
-          event
-              .where(
-                (printer) =>
-            printer.name != null && printer.name!.isNotEmpty,
-          )
-              .toList();
-      completer.complete(printers);
-    });
+          printers =
+              event
+                  .where(
+                    (printer) =>
+                        printer.name != null && printer.name!.isNotEmpty,
+                  )
+                  .toList();
+          completer.complete(printers);
+        });
 
     return completer.future;
   }
 
-  Future<void> saveReceiptAsPdf(
-      dynamic gameData,
-      BuildContext context,
-      ) async
-  {
-    final l16c = Provider.of<DusKaDumController>(context, listen: false);
+  Future<void> saveReceiptAsPdf(dynamic gameData, BuildContext context) async {
+    final dkd = Provider.of<DusKaDumController>(context, listen: false);
     final pdf = pw.Document();
 
-    final totalAmount = l16c.addDusKDBetsPrinting.fold<int>(
+    final totalAmount = dkd.addDusKDBetsPrinting.fold<int>(
       0,
-          (sum, item) => sum + (item['amount'] as int),
+      (sum, item) => sum + (item['amount'] as int),
     );
 
-    final getDrawTime = getNextDrawTimeFormatted(l16c.timerBetTime);
+    final getDrawTime = getNextDrawTimeFormatted(dkd.timerBetTime);
     final ticketId = gameData["ticket_id"].toString();
 
     final barcode = barcode_lib.Barcode.code128();
@@ -123,16 +125,20 @@ class Printing10Controller extends ChangeNotifier {
     // Prepare table rows
     final List<pw.TableRow> tableRows = [];
 
-    for (int i = 0; i < (l16c.addDusKDBetsPrinting.length / 2).ceil(); i++) {
+    for (int i = 0; i < (dkd.addDusKDBetsPrinting.length / 2).ceil(); i++) {
       int firstIndex = i * 2;
       int secondIndex = firstIndex + 1;
-      String firstNumber = l16c.addDusKDBetsPrinting[firstIndex]['game_id'].toString();
-      String firstAmount = l16c.addDusKDBetsPrinting[firstIndex]['amount'].toString();
+      String firstNumber =
+          dkd.addDusKDBetsPrinting[firstIndex]['game_id'].toString();
+      String firstAmount =
+          dkd.addDusKDBetsPrinting[firstIndex]['amount'].toString();
       String? secondNumber;
       String? secondAmount;
-      if (secondIndex < l16c.addDusKDBetsPrinting.length) {
-        secondNumber = l16c.addDusKDBetsPrinting[secondIndex]['game_id'].toString();
-        secondAmount = l16c.addDusKDBetsPrinting[secondIndex]['amount'].toString();
+      if (secondIndex < dkd.addDusKDBetsPrinting.length) {
+        secondNumber =
+            dkd.addDusKDBetsPrinting[secondIndex]['game_id'].toString();
+        secondAmount =
+            dkd.addDusKDBetsPrinting[secondIndex]['amount'].toString();
       }
 
       tableRows.add(
@@ -154,52 +160,54 @@ class Printing10Controller extends ChangeNotifier {
               padding: const pw.EdgeInsets.all(8.0),
               child: pw.Text(secondAmount ?? ''),
             ),
-          ],),);
+          ],
+        ),
+      );
     }
 
     // Build PDF page
     pdf.addPage(
       pw.Page(
-        build: (pw.Context context) => pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            pw.Text(
-              "SUPER STAR DUS KA DUM",
-              style: pw.TextStyle(
-                fontSize: 16,
-                fontWeight: pw.FontWeight.bold,
-              ),
+        build:
+            (pw.Context context) => pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(
+                  "SUPER STAR DUS KA DUM",
+                  style: pw.TextStyle(
+                    fontSize: 16,
+                    fontWeight: pw.FontWeight.bold,
+                  ),
+                ),
+                _buildPdfRow(pdf, 'Game Name', ':', 'Dus ka Dum'),
+                _buildPdfRow(
+                  pdf,
+                  'Game ID',
+                  ':',
+                  gameData["period_no"].toString(),
+                ),
+                _buildPdfRow(pdf, 'Ticket ID', ':', ticketId),
+                _buildPdfRow(pdf, 'Draw Time', ':', getDrawTime),
+                pw.SizedBox(height: 10),
+                pw.Text("Your Numbers:"),
+                pw.Table(border: pw.TableBorder.all(), children: tableRows),
+                pw.SizedBox(height: 10),
+                pw.Text("Total Amount: ₹$totalAmount"),
+                pw.SizedBox(height: 10),
+                pw.Text("Ticket Barcode:"),
+                barcodeWidget,
+              ],
             ),
-            _buildPdfRow(pdf, 'Game Name', ':', 'Dus ka Dum'),
-            _buildPdfRow(pdf, 'Game ID', ':', gameData["period_no"].toString()),
-            _buildPdfRow(pdf, 'Ticket ID', ':', ticketId),
-            _buildPdfRow(pdf, 'Draw Time', ':', getDrawTime),
-            pw.SizedBox(height: 10),
-            pw.Text("Your Numbers:"),
-            pw.Table(
-              border: pw.TableBorder.all(),
-              children: tableRows,
-            ),
-            pw.SizedBox(height: 10),
-            pw.Text("Total Amount: ₹$totalAmount"),
-            pw.SizedBox(height: 10),
-            pw.Text("Ticket Barcode:"),
-            barcodeWidget,
-          ],
-        ),
       ),
     );
     Directory? dir;
     if (Platform.isAndroid) {
       dir = Directory("/storage/emulated/0/Download");
-    } else if (Platform.isWindows)
-    {
+    } else if (Platform.isWindows) {
       dir = await getDownloadsDirectory();
-    } else if (Platform.isMacOS || Platform.isLinux)
-    {
+    } else if (Platform.isMacOS || Platform.isLinux) {
       dir = await getApplicationDocumentsDirectory();
-    } else
-    {
+    } else {
       throw UnsupportedError("Unsupported Platform");
     }
 
@@ -220,9 +228,8 @@ class Printing10Controller extends ChangeNotifier {
     log("PDF Saved at: $path");
   }
 
-
   Future<void> printReceipt(dynamic gameData, BuildContext context) async {
-    final l16c = Provider.of<DusKaDumController>(context, listen: false);
+    final dkd = Provider.of<DusKaDumController>(context, listen: false);
     bool isConnected = await PrintBluetoothThermal.connectionStatus;
     if (!isConnected) {
       debugPrint("Printer is not connected.");
@@ -231,11 +238,11 @@ class Printing10Controller extends ChangeNotifier {
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm58, profile);
-    final totalAmount = l16c.dusKaDumBets.fold(
+    final totalAmount = dkd.dusKaDumBets.fold(
       0,
-          (sum, item) => sum + (item["amount"] as int),
+      (sum, item) => sum + (item["amount"] as int),
     );
-    final getDrawTime = getNextDrawTimeFormatted(l16c.timerBetTime);
+    final getDrawTime = getNextDrawTimeFormatted(dkd.timerBetTime);
     List<int> bytes = [];
 
     bytes += generator.text(
@@ -308,13 +315,12 @@ class Printing10Controller extends ChangeNotifier {
   }
 
   pw.Widget _buildPdfRow(
-      pw.Document pdf,
-      String leftText,
-      String text,
-      String rightText, {
-        bool isBold = false,
-      })
-  {
+    pw.Document pdf,
+    String leftText,
+    String text,
+    String rightText, {
+    bool isBold = false,
+  }) {
     return pw.Padding(
       padding: const pw.EdgeInsets.symmetric(vertical: 3.0),
       child: pw.Row(
@@ -347,5 +353,3 @@ class Printing10Controller extends ChangeNotifier {
     );
   }
 }
-
-

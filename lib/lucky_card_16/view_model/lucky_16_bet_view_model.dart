@@ -22,10 +22,6 @@ class Lucky16BetViewModel extends ChangeNotifier {
 
   Future<void> lucky16BetApi(dynamic betList, context) async {
     setLoading(true);
-    final profileViewModel = Provider.of<ProfileViewModel>(
-      context,
-      listen: false,
-    );
     final l16c = Provider.of<Lucky16Controller>(context, listen: false);
     UserViewModel userViewModel = UserViewModel();
     String? userId = await userViewModel.getUser();
@@ -44,10 +40,10 @@ class Lucky16BetViewModel extends ChangeNotifier {
               l16c.clearBetPrinting();
               l16c.clearBetAfterPrint();
               Utils.show(value['message'].toString(), context);
-              // Provider.of<PrintingController>(
-              //   context,
-              //   listen: false,
-              // ).handleReceiptPrinting(value, betList, context);
+              Provider.of<PrintingController>(
+                context,
+                listen: false,
+              ).handleReceiptPrinting(value, betList, context);
             }else{
               if (kDebugMode) {
                 print("it is found null");

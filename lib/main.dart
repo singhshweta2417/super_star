@@ -26,12 +26,14 @@ import 'package:super_star/spin_to_win/view_model/spin_bet_view_model.dart';
 import 'package:super_star/spin_to_win/view_model/spin_history_view_model.dart';
 import 'package:super_star/spin_to_win/view_model/spin_result_view_model.dart';
 import 'package:super_star/spin_to_win/view_model/user_view_model.dart';
+import 'package:super_star/triple_chance/view_model/claim_winning_view_model.dart';
 import 'package:super_star/triple_chance/view_model/triple_chance_history_view_model.dart';
 import 'package:super_star/triple_chance/view_model/triple_chance_result_view_model.dart';
 import 'package:super_star/utils/routes/routes.dart';
 import 'package:super_star/utils/routes/routes_name.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 import 'package:window_manager/window_manager.dart';
+import '10_ka_dum/view_model/claim_winning_d_view_model.dart';
 import '10_ka_dum/view_model/dus_ka_dum_check_view_model.dart';
 import '10_ka_dum/view_model/dus_ka_dum_history_view_model.dart'
     show DusKaDumHistoryViewModel;
@@ -142,6 +144,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => DusKaDumHistoryViewModel()),
         ChangeNotifierProvider(create: (context) => DusKaDumResultViewModel()),
         ChangeNotifierProvider(create: (context) => DusKaDumCheckViewModel()),
+        ChangeNotifierProvider(create: (context) => ClaimWinningDKDViewModel()),
+        ChangeNotifierProvider(
+          create: (context) => ClaimWinningTripleViewModel(),
+        ),
       ],
       child: MaterialApp(
         color: Colors.red,

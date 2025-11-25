@@ -35,8 +35,8 @@ dependencies:
   media_kit: ^1.1.11
   media_kit_libs_audio: ^1.0.5
   thermal_printer: ^1.0.5
-  esc_pos_utils_plus:
-  pdf_render:
+2e  esc_pos_utils_plus:
+#  pdf_render:
   image: ^4.5.4
   device_info_plus: ^11.4.0
 #  barcode_image: ^2.0.3

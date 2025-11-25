@@ -568,7 +568,7 @@ class _ReportDetailsState extends State<ReportDetails> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 commonWidget(
-                                  profileViewModel.userName,
+                                  '${data.date}',
                                   screenHeight * 0.2,
                                   fotSize: 20,
                                 ),
